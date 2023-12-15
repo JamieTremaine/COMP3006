@@ -1,0 +1,15 @@
+<div class="container">
+    @for (item of items; track item.name) {
+        <div class="row justify-content-center mb-4">
+            <div class="col-6">
+                <a routerLink="menu-list" [queryParams]="{ type: item.queryParam }" class="link-underline link-underline-opacity-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="text-center">{{item.name | uppercase}}</h1>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>
