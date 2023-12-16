@@ -26,7 +26,6 @@ orderRoutes.post(`${path}/add`, (req, res) => {
 orderRoutes.put(`${path}/add/:orderId`, (req, res) => {
     const item: IMenuItem = JSON.parse(req.body);
 
-
     orderService.addToOrder(item, req.params.orderId)
         .then((result) => {
             if (result) {
@@ -35,5 +34,9 @@ orderRoutes.put(`${path}/add/:orderId`, (req, res) => {
                 res.status(404).send("Could not find order to update");
             }
         })
-        .catch(()=>{})
+        .catch((error) => {
+            if(error instanceof InvalidArgumentError) {
+                res.status(400).send(error.message);
+            }
+        })
 });
