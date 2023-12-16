@@ -1,3 +1,1 @@
-export class NutritionalInfo {
-    
-}
+export class NutritionalInfo {}
