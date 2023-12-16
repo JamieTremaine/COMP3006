@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { OrderService } from "../svc/order.service";
-import { IMenuItem } from "../model/menuItem";
 import { InvalidArgumentError } from "../model/Error/InvalidArgumentError";
+import { IOrder } from "../model/order";
 
 export const orderRoutes = Router();
 
@@ -9,34 +9,35 @@ const orderService = new OrderService();
 
 const path = '/order'
 
-orderRoutes.post(`${path}/add`, (req, res) => {
-    const item: IMenuItem = JSON.parse(req.body); 
+orderRoutes.get(`${path}/recent/:userId`, (req, res)=>{
 
-    orderService.addToOrder(item)
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((error) => {
-            if(error instanceof InvalidArgumentError) {
-                res.status(400).send(error.message);
-            }
-        })
+    orderService.getUserOrders(req.params.userId).then((result) => {
+        res.send(result);
+    })
+    .catch(()=> res.status(500).send());
+})
+
+orderRoutes.post(path, (req, res) => {
+    const item: IOrder = JSON.parse(req.body); 
+    
+    orderService.addOrder(item).then((result)=>{
+        res.status(201).send(result);
+    })
+    .catch((err)=>{
+        if (err instanceof InvalidArgumentError) {
+            res.status(400).send(err.message);
+        } else {
+            res.status(500).send();
+        }
+    });
 });
 
-orderRoutes.put(`${path}/add/:orderId`, (req, res) => {
-    const item: IMenuItem = JSON.parse(req.body);
-
-    orderService.addToOrder(item, req.params.orderId)
-        .then((result) => {
-            if (result) {
-                res.send(result);
-            } else {
-                res.status(404).send("Could not find order to update");
-            }
-        })
-        .catch((error) => {
-            if(error instanceof InvalidArgumentError) {
-                res.status(400).send(error.message);
-            }
-        })
+orderRoutes.delete(`${path}/:orderId`, (req, res) =>{
+    orderService.deleteOrder(req.params.orderId).then((result)=>{
+        result ?
+            res.status(200).send() :
+            res.status(404).send(`Could not delete menu with id ${req.params.orderId}`);
+    })
+    .catch(()=> res.status(500).send());
 });
+

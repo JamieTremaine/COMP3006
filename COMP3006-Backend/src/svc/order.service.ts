@@ -1,30 +1,55 @@
 import { InvalidArgumentError } from "../model/Error/InvalidArgumentError";
-import { IMenuItem, MenuItem } from "../model/menuItem";
-import { IOrder, Order } from "../model/order";
+import { IMenu, MenuModel } from "../model/menu";
+import { IOrder, OrderModel } from "../model/order";
 
 export class OrderService {
 
-    public async addToOrder(item: IMenuItem, orderId?: string): Promise<IOrder | null> {
+    public async getUserOrders(userId: string): Promise<Array<IOrder>> {
+        return await OrderModel.find({userId: userId}).limit(50).exec();
+    }
 
-        let order : IOrder | null;
 
-        //Get the item from the db. Sanity check that data hasnt been changed by the user 
-        const menuItem = await MenuItem.findOne(item); 
-        if (!menuItem) {
-            throw new InvalidArgumentError("Invalid menu item");
+    public async addOrder(order: IOrder): Promise<IOrder> {
+
+        return this.verifyOrder(order).then(async (result)=>{
+            if (result) {
+                throw new InvalidArgumentError("This order does not match the menu items. Has it been altered?");
+            }
+            return await OrderModel.create(order);
+        })
+    }
+
+    public async deleteOrder(orderId: string): Promise<boolean> {
+        const result = await OrderModel.findByIdAndDelete(orderId);
+        return !!result.value
+    }
+
+    private async verifyOrder(order: IOrder): Promise<boolean> {
+        const menu: IMenu | null = await MenuModel.findById(order.restaurant.currentMenuId);
+
+        if(!menu) {
+            return false;
         }
 
-        if (orderId) {
-            order = await Order.findOneAndUpdate({ _id: orderId }, 
-                { $push: { items: item } },
-                { $inc: { total: menuItem.price } }
-            );
-        } else {
-           const orderToAdd: IOrder = { items:[item], total: menuItem.price };
-           order = await Order.create(orderToAdd);
-        }
+        const orderSize = order.items.length
 
-        return order;
+        const matches = order.items.filter((orderItem) =>{
+            let match = false;
+            menu.MenuItems.forEach((menuItem)=> {
+                const orderCompareItem = orderItem;
+                orderCompareItem.extras = [];
+
+                const menuCompareItem = menuItem;
+                menuCompareItem.extras = [];
+
+                if(JSON.stringify(menuItem) === JSON.stringify(orderItem)){
+                    match = true;
+                }
+            })
+            return match;
+        });
+
+        return orderSize === matches.length ? true : false;
     }
 
 }
