@@ -8,6 +8,8 @@ export interface IOrder {
     restaurant: IRestaurant
     items: Array<IMenuItem>;
     total: number;
+    orderTime: Date
+    specialInstructions: string;
 }
 
 
@@ -17,6 +19,7 @@ const orderSchema =  new Schema<IOrder>({
     restaurant: Restaurant,
     items: Array<IMenuItem>,
     total: Number,
+    orderTime: Date
 });
 
 export const OrderModel = model<IOrder>('order', orderSchema);

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderService } from '../../svc/header.service';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +11,7 @@ import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+
+  constructor(protected headerService: HeaderService) {}
 
 }
