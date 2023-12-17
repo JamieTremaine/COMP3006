@@ -1,12 +1,27 @@
-<header>
-    <div class="container-fluid mt-1 ">
-        <div class="d-flex align-items-center border-bottom mb-2">
-            <!-- <div class="col-auto">
-                <i class="fa-solid fa-bars fa-xl"></i>
-            </div> -->
-            <div class="col-11">
-                <h1 class="text-center">Restaurant Ordering System</h1>
-            </div>
+<header class="sticky-top high-z-index">
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid">
+            <h4>Restaurant Ordering System</h4>
+            <ul class="navbar-nav ms--md-auto d-flex flex-row">
+                <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
+                    <a ngbDropdownToggle class="nav-link dropdown-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge rounded-pill badge-notification bg-danger ms-1">1</span>
+                    </a>
+                    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+                        <p class="mb-0" ngbDropdownItem>Your order is on the way!</p>
+                    </div>
+                </li>
+                <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
+                    <a ngbDropdownToggle class="nav-link dropdown-toggle">
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+                    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+                        <button routerLink="orders" ngbDropdownItem class="btn">orders</button>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
 </header>
+  

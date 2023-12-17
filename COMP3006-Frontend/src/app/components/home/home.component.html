@@ -1,22 +1,22 @@
 <div class="container">
+    <div class="row justify-content-center searchbar-row sticky-top bg-white pb-2">
+        <div class="col-md-6 col-sm-12">
+            <app-searchbar class="sticky-top"></app-searchbar>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-6">
-            <a routerLink="order" class="link-underline link-underline-opacity-0">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="text-center">ORDER</h1>
+        @for (restaurant of restaurants; track restaurant.id ) {
+            <div class="col-md-6 col-sm-12 mb-2">
+                <a [routerLink]="['restaurant', restaurant.id]" class="link-underline link-underline-opacity-0">
+                    <div class="card">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+                        <div class="card-body">
+                            <h6 class="card-title">Resturant name</h6>
+                            <p class="card-text">Nice little description</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-6">
-            <a routerLink="menu" class="link-underline link-underline-opacity-0">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="text-center">MENU</h1>
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+        }
     </div>
 </div> 
