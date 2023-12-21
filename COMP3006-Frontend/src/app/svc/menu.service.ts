@@ -5,23 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class MenuService {
 
-    private menu: Array<any> = [];
+    private menu: any;
 
     constructor() { }
  
-    getMenu(): Array<any> {
-        return this.menu;
-    }
+    getMenu(menuId: string): Promise<any> {
+        if(menuId === this.menu.id){
+            return this.menu;
+        }
 
-    setMenu(menu: Array<any>) {
-        this.menu = menu;
-    }
-
-    getMenuSubItems(itemType: string): Array<any> {
-        return this.menu.filter((item)=> item === itemType);
-    }
-
-    getMenuItem(itemId: any) {
-        return this.menu.find((item)=> item.id === itemId);
+        return Promise.resolve('');
     }
 }

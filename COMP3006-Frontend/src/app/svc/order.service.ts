@@ -6,22 +6,36 @@ import { Injectable } from '@angular/core';
 
 export class OrderService {
 
-    private currentOrder: Array<any> = [];
+    private currentOrders = new Map<string, Array<any>>();
 
     constructor() { }
 
-
-    addToOrder(item: any) {
-        this.currentOrder.push(item);
+    addToOrder(resturantId: string, item: any) {
+        if (this.currentOrders.has(resturantId)) {
+            let order = this.currentOrders.get(resturantId) as Array<any>;
+            order.push(item);
+            this.currentOrders.set(resturantId, order);
+        } else {
+            this.currentOrders.set(resturantId, [item]);
+        }
     }
 
-    removeFromOrder(item: any) {
-        const idx = this.currentOrder.indexOf(item);
-        this.currentOrder.slice(idx, 1);
+    removeFromOrder(resturantId: string, item: any) {
+        if (this.currentOrders.has(resturantId)) {
+            let order = this.currentOrders.get(resturantId) as Array<any>;
+
+            const idx = order.indexOf(item);
+            order.slice(idx, 1);
+
+            if (order.length === 0) {
+                this.currentOrders.delete(resturantId);
+            } else {
+                this.currentOrders.set(resturantId, order);
+            }
+        }
     }
 
-
-    getOrder(): Array<any> {
-        return this.currentOrder;
+    getOrder(resturantId: string): Array<any> | undefined {
+        return this.currentOrders.get(resturantId);
     }
 }

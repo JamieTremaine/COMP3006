@@ -3,28 +3,27 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class HeaderService implements OnInit, OnDestroy {
+export class HeaderService implements OnDestroy {
 
-  private _showBack: boolean = false;
-  private routerSub: Subscription | undefined
-  currentTitle: string = 'Resturant Ordering System';
+    private _showBack: boolean = false;
+    private routerSub: Subscription | undefined
+    currentTitle: string = 'Resturant Ordering System';
 
-  constructor(private router: Router) {}
+    constructor(private router: Router) {
+        this.routerSub = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this._showBack = event.url === '/' ? false : true
+            }
+        })
+    }
 
-  ngOnInit(): void {
-    this.routerSub = this.router.events.subscribe((event)=>{
-      if (event instanceof NavigationEnd) {
-        this._showBack = event.url === '' ? false : true
-      }
-    })
-  }
-  ngOnDestroy(): void {
-    this.routerSub?.unsubscribe();
-  }
+    ngOnDestroy(): void {
+        this.routerSub?.unsubscribe();
+    }
 
-  public get showBack() : boolean {
-    return this._showBack
-  }
+    public get showBack() : boolean {
+        return this._showBack
+    }
 }

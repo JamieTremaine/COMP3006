@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 export interface IMenuItem {
     name: string;
-    type: string;
+    type: Array<string>;
     price: number;
     decription: string;
     allegens: Array<string>;

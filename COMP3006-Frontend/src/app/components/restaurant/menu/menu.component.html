@@ -1,14 +1,31 @@
-<div class="container">
-    @for (item of items; track item.name) {
-        <div class="row justify-content-center mb-4">
-            <div class="col-6">
-                <a routerLink="menu-list" [queryParams]="{ type: item.queryParam }" class="link-underline link-underline-opacity-0">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="text-center">{{item.name | uppercase}}</h1>
+<div class="row">
+    @for (item of items; track item.name ) {
+        <div class="col-md-6 col-sm-12 mb-2">
+            <div class="card">
+                <div class="row g-0">
+                    @if (item.image) {
+                        <div class="col-4">
+                            <svg class="bd-placeholder-img img-fluid rounded-start" width="100%" height="131px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+                        </div>
+                    }
+                    <div class="col">
+                        <div class="card-body h-100">
+                            <div class="row h-100">
+                                <div class="col">
+                                    <h6 class="card-title">{{ item.name }}</h6>
+                                    <p class="card-text mb-0">{{item.description}}</p>
+                                    <p class="card-text mb-0">{{ item.nutritionalInfo.calories}} kcal</p>
+                                    <p class="card-text mb-0">{{item.price | currency}}</p>
+                                </div>
+                                <div class="col-3 d-flex justify-content-end">
+                                    <button [routerLink]="['menu', item.id]" class="btn btn-outline-primary mt-2 d-inline">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     }
