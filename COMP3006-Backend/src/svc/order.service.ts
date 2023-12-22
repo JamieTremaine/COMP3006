@@ -31,11 +31,11 @@ export class OrderService {
             return false;
         }
 
-        const orderSize = order.items.length
+        const orderSize = order.items?.length
 
-        const matches = order.items.filter((orderItem) =>{
+        const matches = order.items?.filter((orderItem) =>{
             let match = false;
-            menu.MenuItems.forEach((menuItem)=> {
+            menu.MenuItems?.forEach((menuItem)=> {
                 const orderCompareItem = orderItem;
                 orderCompareItem.extras = [];
 
@@ -49,7 +49,7 @@ export class OrderService {
             return match;
         });
 
-        return orderSize === matches.length ? true : false;
+        return orderSize === matches?.length ? true : false;
     }
 
 }

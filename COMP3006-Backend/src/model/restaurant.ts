@@ -5,18 +5,18 @@ export interface IRestaurant {
     restaurantName: string;
     resturantDescription: string;
     currentMenuId?: string;
-    restaurantType: Array<string>;
+    restaurantType?: Array<string>;
 }
 
 export class Restaurant implements IRestaurant{
     constructor(public restaurantName: string, public restaurantType: Array<string>, public resturantDescription: string, public _id?: string,  public currentMenuId?: string) {}
 }
 
-const restaurantSchema = new Schema<IRestaurant>({
+export const restaurantSchema = new Schema<IRestaurant>({
     _id: String,
     resturantDescription: String,
     restaurantName: String,
-    restaurantType: Array<String>,
+    restaurantType: [String],
     currentMenuId: String
 });
 

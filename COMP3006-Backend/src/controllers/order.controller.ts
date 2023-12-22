@@ -9,7 +9,27 @@ const orderService = new OrderService();
 
 const path = '/order'
 
-orderRoutes.get(`${path}/recent/:userId`, (req, res)=>{
+/**
+ * @openapi
+ * /order/{userId}:
+ *  get:
+ *      description: Use to get a singular order by id
+ *      parameters:
+ *      -   in: path
+ *          name: userId
+ *      tags:
+ *      -   order
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/order'
+ *          '500':
+ *              description: other server error
+ */
+orderRoutes.get(`${path}/:userId`, (req, res)=>{
 
     orderService.getUserOrders(req.params.userId).then((result) => {
         res.send(result);
@@ -17,6 +37,31 @@ orderRoutes.get(`${path}/recent/:userId`, (req, res)=>{
     .catch(()=> res.status(500).send());
 })
 
+/**
+ * @openapi
+ * /order:
+ *  post:
+ *      description: add a new order
+ *      tags:
+ *      -   order
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/order'
+ *      responses:
+ *          '201':
+ *              description: created
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/order'
+ *          '400':
+ *              description: Invalid order 
+ *          '500':
+ *              description: other server error
+ */
 orderRoutes.post(path, (req, res) => {
     const item: IOrder = JSON.parse(req.body); 
     
@@ -32,6 +77,24 @@ orderRoutes.post(path, (req, res) => {
     });
 });
 
+/**
+ * @openapi
+ * /order/{orderId}:
+ *  delete:
+ *      description: delete an existing order
+ *      parameters:
+ *      -   in: path
+ *          name: orderId
+ *      tags:
+ *      -   order
+ *      responses:
+ *          '200':
+ *              description: order was successfully deleted
+ *          '404':
+ *              description: order not found
+ *          '500':
+ *              description: other server error
+ */
 orderRoutes.delete(`${path}/:orderId`, (req, res) =>{
     orderService.deleteOrder(req.params.orderId).then((result)=>{
         result ?

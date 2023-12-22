@@ -8,6 +8,28 @@ const restaurantService = new RestaurantService();
 
 const path = '/restaurant'
 
+/**
+ * @openapi
+ * /restaurant/{restaurantId}:
+ *  get:
+ *      description: Use to get a singular restaurant by id
+ *      parameters:
+ *      -   in: path
+ *          name: restaurantId
+ *      tags:
+ *      -   restaurant
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/restaurant'
+ *          '404':
+ *              description: restaurant not found
+ *          '500':
+ *              description: other server error
+ */
 restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
 
     restaurantService.getRestaurant(req.params.restaurantId).then((result) => {
@@ -19,6 +41,23 @@ restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
 
 });
 
+/**
+ * @openapi
+ * /restaurant/all:
+ *  get:
+ *      description: Use to get all restaurants
+ *      tags:
+ *      -   restaurant
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/restaurant'
+ *          '500':
+ *              description: other server error
+ */
 restaurantRoutes.get(`${path}/all`, (req, res) => {
     restaurantService.getAllRestaurants().then((result) => {
         res.send(result);
@@ -26,6 +65,27 @@ restaurantRoutes.get(`${path}/all`, (req, res) => {
     .catch(()=> res.status(500).send());;
 })
 
+/**
+ * @openapi
+ * /restaurant/{restaurantId}:
+ *  put:
+ *      description: update an existing restaurant
+ *      tags:
+ *      -   restaurant
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/restaurant'
+ *      responses:
+ *          '204':
+ *              description: restaurant was successfully updated
+ *          '404':
+ *              description: restaurant not found
+ *          '500':
+ *              description: other server error
+ */
 restaurantRoutes.put(`${path}/:restaurantId`, (req, res) =>{
 
     const menu: IRestaurant = JSON.parse(req.body);
@@ -39,6 +99,29 @@ restaurantRoutes.put(`${path}/:restaurantId`, (req, res) =>{
 
 })
 
+/**
+ * @openapi
+ * /restaurant:
+ *  post:
+ *      description: add a new restaurant
+ *      tags:
+ *      -   restaurant
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/restaurant'
+ *      responses:
+ *          '201':
+ *              description: created
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/restaurant'
+ *          '500':
+ *              description: other server error
+ */
 restaurantRoutes.post(`${path}`, (req, res) => {
 
     const restaurant: IRestaurant = JSON.parse(req.body);
@@ -49,6 +132,24 @@ restaurantRoutes.post(`${path}`, (req, res) => {
     .catch(()=> res.status(500).send());
 })
 
+/**
+ * @openapi
+ * /restaurant/{restaurantId}:
+ *  delete:
+ *      description: delete an existing restaurant
+ *      parameters:
+ *      -   in: path
+ *          name: restaurantId
+ *      tags:
+ *      -   restaurant
+ *      responses:
+ *          '200':
+ *              description: restaurant was successfully deleted
+ *          '404':
+ *              description: restaurant not found
+ *          '500':
+ *              description: other server error
+ */
 restaurantRoutes.delete(`${path}/:restaurantId`, (req, res) => {
     restaurantService.deleteResturant(req.params.restaurantId).then((result)=>{
         result ?
