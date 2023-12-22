@@ -6,7 +6,7 @@ export class RestaurantService {
         return await RestaurantModel.findById(resurantId);
     }
 
-    public async getAllRestaurant(): Promise<Array<IRestaurant>> {
+    public async getAllRestaurants(): Promise<Array<IRestaurant>> {
         return await RestaurantModel.find();
     }
 

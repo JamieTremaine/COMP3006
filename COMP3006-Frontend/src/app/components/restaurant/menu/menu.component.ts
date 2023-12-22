@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { PageComponent } from '../../utils/page/page.component';
 import { HeaderService } from '../../../svc/header.service';
 import { OrderService } from '../../../svc/order.service';
@@ -12,7 +12,14 @@ import { OrderService } from '../../../svc/order.service';
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.scss'
 })
+
 export class MenuComponent extends PageComponent {
+
+    resturantId: string;
+    menuId?: string;
+    currentOrder?: any;
+    resturant?: any;
+    menu?: any;
 
     items = [
         { id:"hello", name: 'burgers', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
@@ -23,11 +30,19 @@ export class MenuComponent extends PageComponent {
         { id:"hello", name: 'drinks', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
     ]
 
-    constructor(protected override headerService: HeaderService) {
+    constructor(protected override headerService: HeaderService, private orderService: OrderService, private activatedRoute: ActivatedRoute) {
         super(headerService);
+
+        this.resturantId = this.activatedRoute.snapshot.url[0].path;
     }
 
     ngOnInit(): void {
         this.setHeader('Resturant Name');
+
+        this.currentOrder = this.orderService.getOrder(this.resturantId);
+    }
+
+    getMenu() {
+
     }
 }

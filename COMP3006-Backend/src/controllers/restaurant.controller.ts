@@ -20,7 +20,7 @@ restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
 });
 
 restaurantRoutes.get(`${path}/all`, (req, res) => {
-    restaurantService.getAllRestaurant().then((result) => {
+    restaurantService.getAllRestaurants().then((result) => {
         res.send(result);
     })
     .catch(()=> res.status(500).send());;

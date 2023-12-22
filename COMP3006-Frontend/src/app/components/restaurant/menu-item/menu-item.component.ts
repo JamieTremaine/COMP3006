@@ -57,28 +57,11 @@ export class MenuItemComponent implements OnInit {
         this.orderService.addToOrder(this.resturantId, order);  
     }
 
-    private createForm(): void {
-        const form = new FormGroup({});
-
-        this.menuItem.extras.forEach((menuExtras) => {
-            const subForm = new FormGroup({});
-
-            menuExtras.extras.forEach((extra) => {
-                subForm.addControl(extra.name, new FormControl(false))
-            })
-            subForm.addValidators(maxValue(menuExtras.max));
-            subForm.addValidators(minValue(menuExtras.minimumRequired));
-            subForm.addValidators(required());
-
-            form.addControl(menuExtras.name, subForm);
-        })
-
-        this.extrasForm = form;
-    }
-
     getExtras(): Array<MenuExtras> {
         const formValue = this.extrasForm.value;
         let extras: Array<{name: string, extras: Array<{name:string}>}> = [];
+
+        //Convert key value(boolean) pairs into MenuExtras object containing only the set extras
         Object.values(formValue).forEach((subExtraItem, i) => {
 
             let pushSubItem: boolean = false;
@@ -101,5 +84,24 @@ export class MenuItemComponent implements OnInit {
         })
 
         return extras;
+    }
+
+    private createForm(): void {
+        const form = new FormGroup({});
+
+        this.menuItem.extras.forEach((menuExtras) => {
+            const subForm = new FormGroup({});
+
+            menuExtras.extras.forEach((extra) => {
+                subForm.addControl(extra.name, new FormControl(false))
+            })
+            subForm.addValidators(maxValue(menuExtras.max));
+            subForm.addValidators(minValue(menuExtras.minimumRequired));
+            subForm.addValidators(required());
+
+            form.addControl(menuExtras.name, subForm);
+        })
+
+        this.extrasForm = form;
     }
 }
