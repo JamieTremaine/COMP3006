@@ -1,0 +1,7 @@
+FROM node:latest as build
+
+WORKDIR /app
+COPY ./dist/takeaway-ordering-system .
+CMD node server/server.mjs
+
+EXPOSE 80
