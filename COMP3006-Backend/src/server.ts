@@ -2,9 +2,9 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import { routes } from './controllers';
 import { connect } from "mongoose";
-import swaggerJsdoc, { Options } from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import openapiSchemas from "./model/openapiSchemas";
+import openapiSchemas from "./model/openapiSchemas.js";
+import { getSpec } from './spec.js'
 
 dotenv.config();
 
@@ -33,7 +33,7 @@ const options = {
     apis: ['./src/server.ts', 'src/controllers/*.controller.ts'],
   };
 
-const swaggerDocs = swaggerJsdoc(options);
+const swaggerDocs = getSpec();
 
 //swagger routes
 if (process.env.BUILD === 'DEV') {
