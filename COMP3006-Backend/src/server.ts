@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import { routes } from './controllers';
 import { connect } from "mongoose";
 import swaggerUi from "swagger-ui-express";
-import openapiSchemas from "./model/openapiSchemas.js";
-import { getSpec } from './spec.js'
+import openapiSchemas from "./model/openapiSchemas";
+import { getSpec } from './spec'
 
 dotenv.config();
 

@@ -1,19 +1,26 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
+import { INutritionalInfo, nutritionalInfoSchema } from "./nutritionalInfo";
+import { IMenuExtras, menuExtraSchema } from "./MenuExtras";
 
 export interface IMenuItem {
-    name: string;
-    type: Array<string>;
-    price: number;
-    decription: string;
-    allegens: Array<string>;
-    extras: Array<string>;
+    _id: string,
+    name: String,
+    itemTypes: Array<string>,
+    image: Buffer | null,
+    description: string,
+    price: number,
+    allegens: Array<string>
+    nutritionalInfo: INutritionalInfo,
+    extras: Array<IMenuExtras>
 }
 
 export const menuItemSchema = new Schema<IMenuItem>({
     name: String,
-    type:  [String],
+    itemTypes:  [String],
+    image: Buffer,
+    description: String,
     price: Number,
-    decription: String,
     allegens: [String],
-    extras:  [String]
+    nutritionalInfo: nutritionalInfoSchema,
+    extras: menuExtraSchema
 });
