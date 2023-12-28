@@ -6,7 +6,7 @@ export interface Order {
 }>;
   orderTime?: string;
   restaurant?: {
-'restaurantDescription'?: string;
+'description'?: string;
 'name'?: string;
 'restaurantType'?: Array<string>;
 'currentMenuId'?: string;

@@ -125,7 +125,7 @@ export class RestaurantService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  restaurantGetAllGet$Response(params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
+  restaurantGetAllGet$Response(params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Restaurant>>> {
     return restaurantGetAllGet(this.http, this.rootUrl, params, context);
   }
 
@@ -137,9 +137,9 @@ export class RestaurantService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  restaurantGetAllGet(params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<Restaurant> {
+  restaurantGetAllGet(params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<Array<Restaurant>> {
     return this.restaurantGetAllGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Restaurant>): Restaurant => r.body)
+      map((r: StrictHttpResponse<Array<Restaurant>>): Array<Restaurant> => r.body)
     );
   }
 

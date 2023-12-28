@@ -4,7 +4,7 @@ export interface Menu {
   MenuItems?: Array<{
 'name'?: string;
 'itemTypes'?: Array<string>;
-'image'?: buffer;
+'image'?: Buffer;
 'description'?: string;
 'price'?: number;
 'allegens'?: Array<string>;

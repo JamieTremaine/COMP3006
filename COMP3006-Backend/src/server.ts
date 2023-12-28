@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import openapiSchemas from "./model/openapiSchemas";
 import { getSpec } from './spec'
 import bodyParser from "body-parser";
+import cors from "cors";
 
 dotenv.config();
 
@@ -13,26 +14,6 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 const dbUrl = process.env.DB_URL || "127.0.0.1";
 const dbPort = process.env.DB_PORT || 27017 
-
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'COMP3006-Backend',
-            description: 'Express API for COMP3006',
-            version: '1.0.0'
-        },
-        servers: [
-            {
-                url: 'http://localhost:3000/api/v1'
-            }
-        ],
-        components: {
-            schemas: openapiSchemas
-        }
-    },
-    apis: ['./src/server.ts', 'src/controllers/*.controller.ts'],
-  };
 
 const swaggerDocs = getSpec();
 
@@ -44,10 +25,16 @@ if (process.env.BUILD === 'DEV') {
     });
 }
 
-
 connect(`mongodb://${dbUrl}:${dbPort}/restaurant-ordering-system`);
 
+const allowedOrigins = ['http://localhost:4200', 'http://localhost:80'];
+
+const corsOptions: cors.CorsOptions = {
+  origin: allowedOrigins
+};
+
 app.use(bodyParser.json())
+app.use(cors(corsOptions))
 app.use('/api/v1/', routes);
 
 

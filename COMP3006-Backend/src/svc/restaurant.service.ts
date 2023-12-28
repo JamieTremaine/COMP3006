@@ -2,9 +2,9 @@ import {  IRestaurant, RestaurantModel,  } from "../model/restaurant";
 
 export class RestaurantService {
 
-    public async getRestaurant(resurantId: string): Promise<IRestaurant | null> {
+    public async getRestaurant(restaurantId: string): Promise<IRestaurant | null> {
         try {
-            const result = await RestaurantModel.findById(resurantId);
+            const result = await RestaurantModel.findById(restaurantId);
             return result;
         }
         catch {

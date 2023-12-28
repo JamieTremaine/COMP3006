@@ -18,6 +18,8 @@ import { menuMenuidPut } from '../fn/menu/menu-menuid-put';
 import { MenuMenuidPut$Params } from '../fn/menu/menu-menuid-put';
 import { menuPost } from '../fn/menu/menu-post';
 import { MenuPost$Params } from '../fn/menu/menu-post';
+import { menuRestaurantIdCurrentGet } from '../fn/menu/menu-restaurant-id-current-get';
+import { MenuRestaurantIdCurrentGet$Params } from '../fn/menu/menu-restaurant-id-current-get';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService extends BaseService {
@@ -50,6 +52,35 @@ export class MenuService extends BaseService {
    */
   menuMenuIdGet(params: MenuMenuIdGet$Params, context?: HttpContext): Observable<Menu> {
     return this.menuMenuIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Menu>): Menu => r.body)
+    );
+  }
+
+  /** Path part for operation `menuRestaurantIdCurrentGet()` */
+  static readonly MenuRestaurantIdCurrentGetPath = '/menu/{restaurantId}/current';
+
+  /**
+   * Use to get a the current menu used by a resturant
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `menuRestaurantIdCurrentGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  menuRestaurantIdCurrentGet$Response(params: MenuRestaurantIdCurrentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Menu>> {
+    return menuRestaurantIdCurrentGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Use to get a the current menu used by a resturant
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `menuRestaurantIdCurrentGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  menuRestaurantIdCurrentGet(params: MenuRestaurantIdCurrentGet$Params, context?: HttpContext): Observable<Menu> {
+    return this.menuRestaurantIdCurrentGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Menu>): Menu => r.body)
     );
   }

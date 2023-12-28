@@ -6,14 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Restaurant } from '../../models/restaurant';
+import { Menu } from '../../models/menu';
 
-export interface RestaurantGetAllGet$Params {
+export interface MenuRestaurantIdCurrentGet$Params {
+  restaurantId: any;
 }
 
-export function restaurantGetAllGet(http: HttpClient, rootUrl: string, params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Restaurant>>> {
-  const rb = new RequestBuilder(rootUrl, restaurantGetAllGet.PATH, 'get');
+export function menuRestaurantIdCurrentGet(http: HttpClient, rootUrl: string, params: MenuRestaurantIdCurrentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Menu>> {
+  const rb = new RequestBuilder(rootUrl, menuRestaurantIdCurrentGet.PATH, 'get');
   if (params) {
+    rb.path('restaurantId', params.restaurantId, {});
   }
 
   return http.request(
@@ -21,9 +23,9 @@ export function restaurantGetAllGet(http: HttpClient, rootUrl: string, params?: 
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Restaurant>>;
+      return r as StrictHttpResponse<Menu>;
     })
   );
 }
 
-restaurantGetAllGet.PATH = '/restaurant/get/all';
+menuRestaurantIdCurrentGet.PATH = '/menu/{restaurantId}/current';

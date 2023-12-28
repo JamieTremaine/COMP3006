@@ -1,5 +1,5 @@
 <div class="row">
-    @for (item of items; track item.name ) {
+    @for (item of menu?.MenuItems; track item.name ) {
         <div class="col-md-6 col-sm-12 mb-2">
             <div class="card">
                 <div class="row g-0">
@@ -14,11 +14,11 @@
                                 <div class="col">
                                     <h6 class="card-title">{{ item.name }}</h6>
                                     <p class="card-text mb-0">{{item.description}}</p>
-                                    <p class="card-text mb-0">{{ item.nutritionalInfo.calories}} kcal</p>
+                                    <p class="card-text mb-0">{{ item.nutritionalInfo?.calories}} kcal</p>
                                     <p class="card-text mb-0">{{item.price | currency}}</p>
                                 </div>
                                 <div class="col-3 d-flex justify-content-end">
-                                    <button [routerLink]="['menu', item.id]" class="btn btn-outline-primary mt-2 d-inline">
+                                    <button [routerLink]="['menu', item._id]" class="btn btn-outline-primary mt-2 d-inline">
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>

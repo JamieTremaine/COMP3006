@@ -53,7 +53,9 @@ restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/restaurant'
+ *                          type: "array"
+ *                          items:
+ *                              $ref: '#/components/schemas/restaurant'
  *          '500':
  *              description: other server error
  */

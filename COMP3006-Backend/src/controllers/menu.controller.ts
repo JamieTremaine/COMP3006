@@ -2,11 +2,13 @@ import { Router } from 'express';
 import { IMenuItem } from '../model/menuItem';
 import { MenuService } from '../svc/menu.service';
 import { IMenu } from '../model/menu';
+import { RestaurantService } from '../svc/restaurant.service';
 
 // eslint-disable-next-line new-cap
 export const menuRoutes = Router();
 
 const menuService = new MenuService();
+const restaurantService = new RestaurantService();
 
 const path = '/menu';
 
@@ -39,6 +41,49 @@ menuRoutes.get(`${path}/:menuId`, (req, res) => {
             res.send(result);
     })
     .catch(()=> res.status(500).send());;
+});
+
+/**
+ * @openapi
+ * /menu/{restaurantId}/current:
+ *  get:
+ *      description: Use to get a the current menu used by a resturant
+ *      parameters:
+ *      -   in: path
+ *          name: restaurantId
+ *      tags:
+ *      -   menu
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/menu'
+ *          '404':
+ *              description: menu not found
+ *          '500':
+ *              description: other server error
+ */
+menuRoutes.get(`${path}/:restaurantId/current`, (req, res) => {
+    restaurantService.getRestaurant(req.params.restaurantId).then((result) => {
+        if (result) {
+            if (result.currentMenuId) {
+                menuService.getMenu(result.currentMenuId).then((menuResult)=> {
+                    if (menuResult) {
+                        res.send(menuResult);
+                    } else {
+                        res.status(404).send(`menus from ${req.params.restaurantId} could not be found`);
+                    }
+                })
+            } else {
+                res.status(404).send(`menus for ${req.params.restaurantId} has not been set`);
+            }
+        } else {
+            res.status(404).send(`restaurant ${req.params.restaurantId} could not be found`);
+        }  
+    });
+    
 });
 
 menuRoutes.get(`${path}/:restaurantId/all`, (req, res) => {
@@ -78,7 +123,7 @@ menuRoutes.post(`${path}`, (req, res) => {
     menuService.setMenu(menu).then((result) => {
         res.status(201).send(result)
     })
-    .catch(()=> res.status(500).send('error'));
+    .catch(()=> res.status(500).send());
 });
 
 /**
