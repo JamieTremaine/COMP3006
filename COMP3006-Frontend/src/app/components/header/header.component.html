@@ -8,29 +8,31 @@
                 </button>
             }
             <h4>{{ headerService.currentTitle }}</h4>
-            <ul class="navbar-nav ms-md-auto d-flex flex-row">
-                <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
-                    <a ngbDropdownToggle class="nav-link dropdown-toggle">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge rounded-pill badge-notification bg-danger ms-1">1</span>
-                    </a>
-                    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
-                        <p class="mb-0" ngbDropdownItem>Your order is on the way!</p>
-                    </div>
-                </li>
-                <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
-                    <a ngbDropdownToggle class="nav-link dropdown-toggle">
-                        <i class="fa-regular fa-user"></i>
-                        @if(activeOrders !== 0) {
-                            <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeOrders }}</span>
-                        }
-                    </a>
-                    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
-                        <button [routerLink]="['orders', 'current']" ngbDropdownItem class="btn">current orders</button>
-                        <button [routerLink]="['orders', 'previous']" ngbDropdownItem class="btn">Previous orders</button>
-                    </div>
-                </li>
-            </ul>
+            @if(loggedIn){
+                <ul class="navbar-nav ms-md-auto d-flex flex-row">
+                    <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
+                        <a ngbDropdownToggle class="nav-link dropdown-toggle">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge rounded-pill badge-notification bg-danger ms-1">1</span>
+                        </a>
+                        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+                            <p class="mb-0" ngbDropdownItem>Your order is on the way!</p>
+                        </div>
+                    </li>
+                    <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
+                        <a ngbDropdownToggle class="nav-link dropdown-toggle">
+                            <i class="fa-regular fa-user"></i>
+                            @if(activeOrders !== 0) {
+                                <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeOrders }}</span>
+                            }
+                        </a>
+                        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+                            <button [routerLink]="['orders', 'current']" ngbDropdownItem class="btn">current orders</button>
+                            <button [routerLink]="['orders', 'previous']" ngbDropdownItem class="btn">Previous orders</button>
+                        </div>
+                    </li>
+                </ul>
+            }
         </div>
     </nav>
 </header>

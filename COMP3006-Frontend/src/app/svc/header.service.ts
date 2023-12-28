@@ -14,7 +14,12 @@ export class HeaderService implements OnDestroy {
     constructor(private router: Router) {
         this.routerSub = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                this._showBack = event.url === '/' ? false : true
+
+                if(event.url === '/' || event.url === '/login') {
+                    this._showBack = false;
+                } else {
+                    this._showBack = true;
+                }
             }
         })
     }
