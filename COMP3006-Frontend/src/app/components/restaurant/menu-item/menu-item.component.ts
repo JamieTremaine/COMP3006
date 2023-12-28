@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { maxValue } from '../../utils/validators/maxValue';
-import { minValue } from '../../utils/validators/minValue';
-import { required } from '../../utils/validators/required';
 import { OrderService } from '../../../svc/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgMenuService } from '../../../svc/menu.service';
 import { MenuService } from '../../../api/services';
 import { lastValueFrom } from 'rxjs';
+import { Severity, ToastService } from '../../../svc/toast.service';
 
 @Component({
     selector: 'app-menu-item',
@@ -25,7 +23,12 @@ export class MenuItemComponent implements OnInit {
     menuItem?: MenuItem 
     extrasForm?: FormGroup;
 
-    constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute, private ngMenuService: NgMenuService, private menuService: MenuService ) {
+    constructor(private orderService: OrderService, 
+        private activatedRoute: ActivatedRoute, 
+        private ngMenuService: NgMenuService, 
+        private menuService: MenuService, 
+        private toaster: ToastService ) {
+
         this.resturantId = this.activatedRoute.snapshot.url[0].path;
         this.menuItemId = this.activatedRoute.snapshot.url[2].path;
     }
@@ -59,6 +62,7 @@ export class MenuItemComponent implements OnInit {
         order.extras = extras;
 
         this.orderService.addToOrder(this.resturantId, order);  
+        this.toaster.show('Order added', Severity.success, 5000);
     }
 
     getExtras(): Array<MenuExtras> {
@@ -102,9 +106,6 @@ export class MenuItemComponent implements OnInit {
                         subForm.addControl(extra.name, new FormControl(false))
                     }
                 })
-                subForm.addValidators(maxValue(menuExtras.max));
-                subForm.addValidators(minValue(menuExtras.minimumRequired));
-                subForm.addValidators(required());
 
                 if (menuExtras.name) {
                     form.addControl(menuExtras.name, subForm);
@@ -112,7 +113,6 @@ export class MenuItemComponent implements OnInit {
             })
 
             this.extrasForm = form;
-            console.log(this.extrasForm )
         }
     }
 }
