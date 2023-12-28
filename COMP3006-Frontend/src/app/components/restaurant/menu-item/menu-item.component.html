@@ -1,34 +1,42 @@
 <div class="card">
     <div class="card-body border-bottom">
-        <h2 class="card-title">{{ menuItem.name }}</h2>
-        <p class="card-text mb-0">{{menuItem.description}}</p>
-        <p class="card-text mb-0">{{ menuItem.nutritionalInfo.calories}} kcal</p>
+        <h2 class="card-title">{{ menuItem?.name }}</h2>
+        <p class="card-text mb-0">{{menuItem?.description}}</p>
+        <p class="card-text mb-0">{{ menuItem?.nutritionalInfo?.calories}} kcal</p>
     </div>   <div class="card-body border-bottom">  
         <button class="btn btn-outline-secondary">
             <i class="fa-solid fa-circle-info fa-xl me-2"></i>
             <h6 class="d-inline">Info</h6>
         </button>
     </div>
-    <div class="card-body">
-        <h5>Extras & removals</h5>
-    </div>
-    <form [formGroup]="extrasForm">
-        @for (itemExtras of menuItem.extras; track $index) {
-            <div [formGroupName]="itemExtras.name" class="card-body border-top border-bottom">
-                <h6>{{itemExtras.name}}</h6>
-                @for (extra of itemExtras.extras; track $index) {
-                    <div class="row justify-content-between">
-                        <div class="col-11">
-                            <label>{{ extra.name }}</label>
-                        </div>
-                        <div class="col-1">
-                            <input [formControlName]="extra.name" class="form-check-input form-check-input-lg" type="checkbox">
-                        </div>
+    @if(extrasForm) {
+        <form [formGroup]="extrasForm">
+            @for (itemExtras of menuItem?.extras; track $index) {
+                @if (itemExtras.name){
+                    <div class="card-body">
+                        <h5>{{ itemExtras.name }}</h5>
+                    </div>
+                    <div [formGroupName]="itemExtras.name" class="card-body border-top border-bottom">
+                        <h6>{{itemExtras.name}}</h6>
+                        @for (extra of itemExtras.extras; track $index) {
+                            <div class="row justify-content-between">
+                                <div class="col-11">
+                                    <label>{{ extra.name }}</label>
+                                </div>
+                                <div class="col-1">
+                                    @if(extra.name) {
+                                        <input [formControlName]="extra.name" class="form-check-input form-check-input-lg" type="checkbox">
+                                    }                               
+                                </div>
+                            </div>
+                        }
                     </div>
                 }
-            </div>
-        }
-    </form>
+            }
+        </form>
+    } @else {
+        <h4>nope</h4>
+    }
 
     <button (click)="addToOrder()" class="btn btn-primary">
         <h5 class="my-1">Add to order</h5>

@@ -6,6 +6,9 @@ import { minValue } from '../../utils/validators/minValue';
 import { required } from '../../utils/validators/required';
 import { OrderService } from '../../../svc/order.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgMenuService } from '../../../svc/menu.service';
+import { MenuService } from '../../../api/services';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-menu-item',
@@ -16,36 +19,37 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MenuItemComponent implements OnInit {
 
-    private resturantId : string;
+    private resturantId: string;
+    private menuItemId: string;
 
-    menuItem: MenuItem = { id:"hello", name:'burgers', itemTypes: ['featured' ], image: null, description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400}, 
-        extras: [
-            { required: false, name: 'pick one of these!', extras: [
-                {name: 'no onions', NutritionalInfo: { calories: 40} },
-                {name: 'no cheese', NutritionalInfo: { calories: 50} },
-                {name: 'no buns', NutritionalInfo: { calories: 60} }
-            ]},
-            { required: false, name: 'Dont pick one of these!', extras: [
-                {name: 'no onions', NutritionalInfo: { calories: 40} },
-                {name: 'no cheese', NutritionalInfo: { calories: 50} },
-                {name: 'no buns', NutritionalInfo: { calories: 60} }
-            ]},
-            { required: false, name: 'something pick one of these!', extras: [
-                {name: 'no onions', NutritionalInfo: { calories: 40} },
-                {name: 'no cheese', NutritionalInfo: { calories: 50} },
-                {name: 'no buns', NutritionalInfo: { calories: 60} }
-            ]}
-        ] 
-    }
-    extrasForm: FormGroup;
+    menuItem?: MenuItem 
+    extrasForm?: FormGroup;
 
-    constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute ) {
-        this.extrasForm = new FormGroup({});
+    constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute, private ngMenuService: NgMenuService, private menuService: MenuService ) {
         this.resturantId = this.activatedRoute.snapshot.url[0].path;
+        this.menuItemId = this.activatedRoute.snapshot.url[2].path;
     }
 
     ngOnInit(): void {
+        this.menuItem = this.getMenuItem();
+        if(!this.menuItem) {
+            this.loadMenuItem();
+
+        }
         this.createForm();
+    }
+
+    loadMenuItem() {
+        lastValueFrom( this.menuService.menuRestaurantIdCurrentGet({restaurantId: this.resturantId})).then((result)=>{
+            this.ngMenuService.setMenu(result);
+            this.menuItem = this.getMenuItem();
+            this.createForm();
+        })    
+    }
+
+    getMenuItem(): MenuItem | undefined {
+        const menu = this.ngMenuService.getMenu();
+        return menu?.MenuItems?.find(item => item._id === this.menuItemId);
     }
 
     addToOrder() {
@@ -58,7 +62,7 @@ export class MenuItemComponent implements OnInit {
     }
 
     getExtras(): Array<MenuExtras> {
-        const formValue = this.extrasForm.value;
+        const formValue = this.extrasForm?.value;
         let extras: Array<{name: string, extras: Array<{name:string}>}> = [];
 
         //Convert key value(boolean) pairs into MenuExtras object containing only the set extras
@@ -89,19 +93,26 @@ export class MenuItemComponent implements OnInit {
     private createForm(): void {
         const form = new FormGroup({});
 
-        this.menuItem.extras.forEach((menuExtras) => {
-            const subForm = new FormGroup({});
+        if(this.menuItem?.extras) {       
+            this.menuItem.extras.forEach((menuExtras) => {
+                const subForm = new FormGroup({});
 
-            menuExtras.extras.forEach((extra) => {
-                subForm.addControl(extra.name, new FormControl(false))
+                menuExtras?.extras?.forEach((extra) => {
+                    if (extra?.name) {
+                        subForm.addControl(extra.name, new FormControl(false))
+                    }
+                })
+                subForm.addValidators(maxValue(menuExtras.max));
+                subForm.addValidators(minValue(menuExtras.minimumRequired));
+                subForm.addValidators(required());
+
+                if (menuExtras.name) {
+                    form.addControl(menuExtras.name, subForm);
+                }
             })
-            subForm.addValidators(maxValue(menuExtras.max));
-            subForm.addValidators(minValue(menuExtras.minimumRequired));
-            subForm.addValidators(required());
 
-            form.addControl(menuExtras.name, subForm);
-        })
-
-        this.extrasForm = form;
+            this.extrasForm = form;
+            console.log(this.extrasForm )
+        }
     }
 }

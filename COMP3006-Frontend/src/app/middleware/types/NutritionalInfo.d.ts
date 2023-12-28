@@ -1,3 +1,3 @@
 type NutritionalInfo = {
-    calories: number;
+    calories?: number;
 }

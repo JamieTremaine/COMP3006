@@ -1,10 +1,10 @@
 type MenuItem = {
-    id: string,
-    name: String,
-    itemTypes: Array<string>,
-    image: Blob | null,
-    description: string,
-    price: number,
-    nutritionalInfo: NutritionalInfo,
-    extras: Array<MenuExtras>
+    _id?: string | undefined,
+    name?: String | undefined,
+    itemTypes?: Array<string>,
+    image?: Buffer | null,
+    description?: string | undefined,
+    price?: number,
+    nutritionalInfo?: NutritionalInfo,
+    extras?: Array<MenuExtras>
 }

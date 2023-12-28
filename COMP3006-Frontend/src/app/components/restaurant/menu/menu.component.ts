@@ -7,6 +7,7 @@ import { OrderService } from '../../../svc/order.service';
 import { MenuService } from '../../../api/services';
 import { lastValueFrom, map } from 'rxjs';
 import { Menu } from '../../../api/models';
+import { NgMenuService } from '../../../svc/menu.service';
 
 @Component({
     selector: 'app-menu',
@@ -33,7 +34,11 @@ export class MenuComponent extends PageComponent {
         { id:"hello", name: 'drinks', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
     ]
 
-    constructor(protected override headerService: HeaderService, private orderService: OrderService, private activatedRoute: ActivatedRoute, private menuService: MenuService) {
+    constructor(protected override headerService: HeaderService, 
+        private orderService: OrderService, 
+        private activatedRoute: ActivatedRoute, 
+        private menuService: MenuService, 
+        private ngMenuService: NgMenuService) {
         super(headerService);
 
         this.resturantId = this.activatedRoute.snapshot.url[0].path;
@@ -43,15 +48,16 @@ export class MenuComponent extends PageComponent {
     }
 
     ngOnInit(): void {
-        this.setHeader('Resturant Name');
-
         this.currentOrder = this.orderService.getOrder(this.resturantId);
         this.getMenu();
+
     }
 
     getMenu() {
         lastValueFrom(this.menuService.menuRestaurantIdCurrentGet({restaurantId: this.resturantId})).then((result) => {
             this.menu = result;
+            this.ngMenuService.setMenu(result);
+            this.setHeader(result.restaurantName);
         })
       
     }

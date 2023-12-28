@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Menu } from '../api/models';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MenuService {
+export class NgMenuService {
 
-    private menu: any;
+    private menu?: Menu;
 
     constructor() { }
  
-    getMenu(menuId: string): Promise<any> {
-        if(menuId === this.menu.id){
-            return this.menu;
-        }
-
-        return Promise.resolve('');
+    getMenu(): Menu | undefined {
+        return this.menu;
     }
+
+    setMenu(menu: Menu) {
+        this.menu = menu;
+    }
+
+
 }

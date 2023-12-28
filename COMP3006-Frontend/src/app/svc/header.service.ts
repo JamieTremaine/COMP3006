@@ -9,7 +9,7 @@ export class HeaderService implements OnDestroy {
 
     private _showBack: boolean = false;
     private routerSub: Subscription | undefined
-    currentTitle: string = 'Resturant Ordering System';
+    currentTitle?: string = 'Resturant Ordering System';
 
     constructor(private router: Router) {
         this.routerSub = this.router.events.subscribe((event) => {

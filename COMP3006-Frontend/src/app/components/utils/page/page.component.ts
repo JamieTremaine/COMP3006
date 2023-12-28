@@ -12,7 +12,7 @@ export class PageComponent {
 
     constructor(protected headerService: HeaderService){}
 
-    public setHeader(header: string): void {
+    public setHeader(header?: string): void {
         this.headerService.currentTitle = header;
     }
 }
