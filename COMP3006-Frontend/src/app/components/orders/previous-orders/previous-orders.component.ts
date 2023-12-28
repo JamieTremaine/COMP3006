@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-previous-orders',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  templateUrl: './previous-orders.component.html',
+  styleUrl: './previous-orders.component.scss'
 })
-export class OrdersComponent {
+export class PreviousOrdersComponent {
 
   orders: Array<any> = [{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},{id: "hello"},]
 

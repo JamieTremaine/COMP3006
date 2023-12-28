@@ -31,7 +31,6 @@ export class HomeComponent extends PageComponent implements OnInit {
     loadResturaunts() {
         lastValueFrom(this.restaurantService.restaurantGetAllGet()).then((result) => {
             this.restaurants = result;
-            console.log(result);
         })
 
     }

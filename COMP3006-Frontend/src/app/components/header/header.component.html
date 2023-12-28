@@ -21,10 +21,13 @@
                 <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
                     <a ngbDropdownToggle class="nav-link dropdown-toggle">
                         <i class="fa-regular fa-user"></i>
+                        @if(activeOrders !== 0) {
+                            <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeOrders }}</span>
+                        }
                     </a>
                     <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
-                        <button routerLink="orders" ngbDropdownItem class="btn">current orders</button>
-                        <button routerLink="orders" ngbDropdownItem class="btn">Previous orders</button>
+                        <button [routerLink]="['orders', 'current']" ngbDropdownItem class="btn">current orders</button>
+                        <button [routerLink]="['orders', 'previous']" ngbDropdownItem class="btn">Previous orders</button>
                     </div>
                 </li>
             </ul>

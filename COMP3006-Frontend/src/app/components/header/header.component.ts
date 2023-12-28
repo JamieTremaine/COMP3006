@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderService } from '../../svc/header.service';
 import { Location } from '@angular/common';
+import { ngOrderService } from '../../svc/order.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -11,9 +13,22 @@ import { Location } from '@angular/common';
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
 
-    constructor(protected headerService: HeaderService, private location: Location) {}
+    activeOrders: number = 0;
+    private destroy$ = new Subject<void>();
+
+    constructor(protected headerService: HeaderService, private location: Location, public orderService: ngOrderService) {}
+
+    ngOnInit(): void {
+       this.orderService.activeOrders
+        .pipe(takeUntil(this.destroy$)).subscribe((activeOrders) => this.activeOrders = activeOrders);
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
 
     onBack(): void {
         this.location.back()

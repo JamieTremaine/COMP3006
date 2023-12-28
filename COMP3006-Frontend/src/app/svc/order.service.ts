@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class OrderService {
+export class ngOrderService {
 
     private currentOrders = new Map<string, Array<any>>();
+
+    public activeOrders = new Subject<number>();
 
     constructor() { }
 
@@ -17,6 +20,7 @@ export class OrderService {
             this.currentOrders.set(resturantId, order);
         } else {
             this.currentOrders.set(resturantId, [item]);
+            this.activeOrders.next(this.currentOrders.size);
         }
     }
 
@@ -29,6 +33,7 @@ export class OrderService {
 
             if (order.length === 0) {
                 this.currentOrders.delete(resturantId);
+                this.activeOrders.next(this.currentOrders.size);
             } else {
                 this.currentOrders.set(resturantId, order);
             }

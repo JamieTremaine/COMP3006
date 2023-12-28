@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { OrderService } from '../../../svc/order.service';
+import { ngOrderService } from '../../../svc/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgMenuService } from '../../../svc/menu.service';
 import { MenuService } from '../../../api/services';
@@ -23,7 +23,7 @@ export class MenuItemComponent implements OnInit {
     menuItem?: MenuItem 
     extrasForm?: FormGroup;
 
-    constructor(private orderService: OrderService, 
+    constructor(private orderService: ngOrderService, 
         private activatedRoute: ActivatedRoute, 
         private ngMenuService: NgMenuService, 
         private menuService: MenuService, 

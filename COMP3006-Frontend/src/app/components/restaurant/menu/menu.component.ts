@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { PageComponent } from '../../utils/page/page.component';
 import { HeaderService } from '../../../svc/header.service';
-import { OrderService } from '../../../svc/order.service';
+import { ngOrderService } from '../../../svc/order.service';
 import { MenuService } from '../../../api/services';
 import { lastValueFrom, map } from 'rxjs';
 import { Menu } from '../../../api/models';
@@ -25,26 +25,14 @@ export class MenuComponent extends PageComponent {
     resturant?: any;
     menu?: Menu;
 
-    items = [
-        { id:"hello", name: 'burgers', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
-        { id:"hello", name: 'sides', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
-        { id:"hello", name: 'desserts', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
-        { id:"hello", name: 'drinks', itemType: ['featured', ], image: "", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
-        { id:"hello", name: 'drinks', itemType: ['featured', ], image: "", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
-        { id:"hello", name: 'drinks', itemType: ['featured', ], image: " ", description: 'yummy', price: 2.88, nutritionalInfo: { calories: 400} },
-    ]
-
     constructor(protected override headerService: HeaderService, 
-        private orderService: OrderService, 
+        private orderService: ngOrderService, 
         private activatedRoute: ActivatedRoute, 
         private menuService: MenuService, 
         private ngMenuService: NgMenuService) {
         super(headerService);
 
         this.resturantId = this.activatedRoute.snapshot.url[0].path;
-        this.activatedRoute.params.subscribe((value)=>{
-            console.log(value)
-        })
     }
 
     ngOnInit(): void {
