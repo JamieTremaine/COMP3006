@@ -1,10 +1,11 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import { routes } from './controllers';
+import { routes } from './controllers/index';
 import { connect } from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import openapiSchemas from "./model/openapiSchemas";
 import { getSpec } from './spec'
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -44,8 +45,9 @@ if (process.env.BUILD === 'DEV') {
 }
 
 
-connect(`mongodb://${dbUrl}:${dbPort}`);
+connect(`mongodb://${dbUrl}:${dbPort}/restaurant-ordering-system`);
 
+app.use(bodyParser.json())
 app.use('/api/v1/', routes);
 
 

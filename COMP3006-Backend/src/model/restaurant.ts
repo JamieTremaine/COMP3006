@@ -2,22 +2,21 @@ import { Schema, model } from "mongoose";
 
 export interface IRestaurant {
     _id?: string
-    restaurantName: string;
-    resturantDescription: string;
+    name: string;
+    restaurantDescription: string;
     currentMenuId?: string;
     restaurantType?: Array<string>;
 }
 
 export class Restaurant implements IRestaurant{
-    constructor(public restaurantName: string, public restaurantType: Array<string>, public resturantDescription: string, public _id?: string,  public currentMenuId?: string) {}
+    constructor(public name: string, public restaurantType: Array<string>, public restaurantDescription: string, public _id?: string,  public currentMenuId?: string) {}
 }
 
 export const restaurantSchema = new Schema<IRestaurant>({
-    _id: String,
-    resturantDescription: String,
-    restaurantName: String,
+    restaurantDescription: String,
+    name: String,
     restaurantType: [String],
     currentMenuId: String
 });
 
-export const RestaurantModel = model<IRestaurant>('restaurant', restaurantSchema);
+export const RestaurantModel = model<IRestaurant>('restaurants', restaurantSchema);

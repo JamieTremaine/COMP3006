@@ -63,7 +63,7 @@ orderRoutes.get(`${path}/:userId`, (req, res)=>{
  *              description: other server error
  */
 orderRoutes.post(path, (req, res) => {
-    const item: IOrder = JSON.parse(req.body); 
+    const item: IOrder = req.body; 
     
     orderService.addOrder(item).then((result)=>{
         res.status(201).send(result);

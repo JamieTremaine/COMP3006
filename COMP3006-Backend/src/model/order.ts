@@ -22,4 +22,4 @@ const orderSchema = new Schema<IOrder>({
     orderTime: Date
 });
 
-export const OrderModel = model<IOrder>('order', orderSchema);
+export const OrderModel = model<IOrder>('orders', orderSchema);

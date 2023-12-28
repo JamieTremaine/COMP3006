@@ -41,6 +41,14 @@ menuRoutes.get(`${path}/:menuId`, (req, res) => {
     .catch(()=> res.status(500).send());;
 });
 
+menuRoutes.get(`${path}/:restaurantId/all`, (req, res) => {
+    menuService.getrestaurantMenus(req.params.restaurantId).then((result) => {
+        result ?
+        res.status(404).send(`menus from ${req.params.restaurantId} could not be found`):
+        res.send(result);
+    })
+})
+
 /**
  * @openapi
  * /menu:
@@ -65,12 +73,12 @@ menuRoutes.get(`${path}/:menuId`, (req, res) => {
  *              description: other server error
  */
 menuRoutes.post(`${path}`, (req, res) => {
-    const menu: IMenu = JSON.parse(req.body);
+    const menu: IMenu = req.body;
 
     menuService.setMenu(menu).then((result) => {
         res.status(201).send(result)
     })
-    .catch(()=> res.status(500).send());
+    .catch(()=> res.status(500).send('error'));
 });
 
 /**
@@ -95,7 +103,7 @@ menuRoutes.post(`${path}`, (req, res) => {
  *              description: other server error
  */
 menuRoutes.put(`${path}/:menuId`, (req, res) => {
-    const menu: IMenu = JSON.parse(req.body);
+    const menu: IMenu = req.body;
 
     menuService.setMenu(menu, req.params.menuId).then((result )=>{
         result ?

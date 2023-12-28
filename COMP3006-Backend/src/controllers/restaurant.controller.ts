@@ -2,7 +2,7 @@ import { Router } from "express";
 import { RestaurantService } from "../svc/restaurant.service";
 import { IRestaurant } from "../model/restaurant";
 
-export const restaurantRoutes  = Router();
+export const restaurantRoutes = Router();
 
 const restaurantService = new RestaurantService();
 
@@ -31,19 +31,18 @@ const path = '/restaurant'
  *              description: other server error
  */
 restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
-
     restaurantService.getRestaurant(req.params.restaurantId).then((result) => {
-        result ?
+        result == null ?
             res.status(404).send(`menu with id ${req.params.restaurantId} could not be found`):
             res.send(result);
     })
-    .catch(()=> res.status(500).send());;
+    .catch(()=> res.status(500).send());
 
 });
 
 /**
  * @openapi
- * /restaurant/all:
+ * /restaurant/get/all:
  *  get:
  *      description: Use to get all restaurants
  *      tags:
@@ -58,12 +57,12 @@ restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
  *          '500':
  *              description: other server error
  */
-restaurantRoutes.get(`${path}/all`, (req, res) => {
+restaurantRoutes.get(`${path}/get/all`, (req, res) => {
     restaurantService.getAllRestaurants().then((result) => {
         res.send(result);
     })
-    .catch(()=> res.status(500).send());;
-})
+    .catch(()=> res.status(500).send());
+});
 
 /**
  * @openapi
@@ -88,7 +87,7 @@ restaurantRoutes.get(`${path}/all`, (req, res) => {
  */
 restaurantRoutes.put(`${path}/:restaurantId`, (req, res) =>{
 
-    const menu: IRestaurant = JSON.parse(req.body);
+    const menu: IRestaurant = req.body;
 
     restaurantService.setResturant(menu, req.params.restaurantId).then((result)=>{
         result ?
@@ -96,7 +95,6 @@ restaurantRoutes.put(`${path}/:restaurantId`, (req, res) =>{
             res.send(result);
     })
     .catch(()=> res.status(500).send());
-
 })
 
 /**
@@ -123,8 +121,7 @@ restaurantRoutes.put(`${path}/:restaurantId`, (req, res) =>{
  *              description: other server error
  */
 restaurantRoutes.post(`${path}`, (req, res) => {
-
-    const restaurant: IRestaurant = JSON.parse(req.body);
+    const restaurant: IRestaurant = req.body;
 
     restaurantService.setResturant(restaurant).then((result) => {
         res.status(201).send(result)

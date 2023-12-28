@@ -3,7 +3,13 @@ import {  IRestaurant, RestaurantModel,  } from "../model/restaurant";
 export class RestaurantService {
 
     public async getRestaurant(resurantId: string): Promise<IRestaurant | null> {
-        return await RestaurantModel.findById(resurantId);
+        try {
+            const result = await RestaurantModel.findById(resurantId);
+            return result;
+        }
+        catch {
+            return null;
+        }
     }
 
     public async getAllRestaurants(): Promise<Array<IRestaurant>> {
@@ -24,6 +30,6 @@ export class RestaurantService {
 
     public async deleteResturant(resturantId: string): Promise<boolean> {
         const result = await RestaurantModel.findByIdAndDelete(resturantId);
-        return !!result.value
+        return !!result
     }
 }

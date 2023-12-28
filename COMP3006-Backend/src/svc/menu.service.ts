@@ -8,6 +8,10 @@ export class MenuService {
         return await MenuModel.findById(menuId);
     }
 
+    public async getrestaurantMenus(restaurantId: string): Promise<Array<IMenu>> {
+        return await MenuModel.find({restaurantId: restaurantId})
+    }
+
     public async setMenu(menu: IMenu, menuId?: string): Promise<IMenu | null> {
         let menuResult: IMenu | null;
 

@@ -9,10 +9,9 @@ export interface IMenu {
 }
 
 const MenuSchema = new Schema<IMenu>({
-    _id: String,
     restaurantId: String,
     restaurantName: String,
-    MenuItems: menuItemSchema
+    MenuItems: [menuItemSchema]
 });
 
-export const MenuModel = model<IMenu>('menu', MenuSchema);
+export const MenuModel = model<IMenu>('menus', MenuSchema);

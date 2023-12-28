@@ -22,5 +22,5 @@ export const menuItemSchema = new Schema<IMenuItem>({
     price: Number,
     allegens: [String],
     nutritionalInfo: nutritionalInfoSchema,
-    extras: menuExtraSchema
+    extras: [menuExtraSchema]
 });

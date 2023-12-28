@@ -8,7 +8,7 @@ export interface IMenuExtras {
     name: string,
     extras: Array<{
         name: string, 
-        NutritionalInfo: INutritionalInfo
+        nutritionalInfo: INutritionalInfo
     }>;
 }
 
