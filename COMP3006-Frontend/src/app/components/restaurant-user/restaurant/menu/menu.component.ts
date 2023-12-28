@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { PageComponent } from '../../utils/page/page.component';
-import { HeaderService } from '../../../svc/header.service';
-import { ngOrderService } from '../../../svc/order.service';
-import { MenuService } from '../../../api/services';
-import { lastValueFrom, map } from 'rxjs';
-import { Menu } from '../../../api/models';
-import { NgMenuService } from '../../../svc/menu.service';
+import { lastValueFrom } from 'rxjs';
+import { PageComponent } from '../../../utils/page/page.component';
+import { Menu } from '../../../../api/models';
+import { MenuService } from '../../../../api/services';
+import { HeaderService } from '../../../../svc/header.service';
+import { NgMenuService } from '../../../../svc/menu.service';
+import { ngOrderService } from '../../../../svc/order.service';
+
 
 @Component({
     selector: 'app-menu',

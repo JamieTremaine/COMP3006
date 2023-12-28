@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ngOrderService } from '../../../svc/order.service';
 import { ActivatedRoute } from '@angular/router';
-import { NgMenuService } from '../../../svc/menu.service';
-import { MenuService } from '../../../api/services';
 import { lastValueFrom } from 'rxjs';
-import { Severity, ToastService } from '../../../svc/toast.service';
+import { MenuService } from '../../../../api/services';
+import { NgMenuService } from '../../../../svc/menu.service';
+import { ngOrderService } from '../../../../svc/order.service';
+import { ToastService, Severity } from '../../../../svc/toast.service';
 
 @Component({
     selector: 'app-menu-item',
