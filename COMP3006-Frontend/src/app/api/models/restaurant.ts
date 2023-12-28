@@ -3,7 +3,7 @@
 export interface Restaurant {
   '_id'?: string;
   currentMenuId?: string;
-  restaurantName?: string;
+  name?: string;
+  restaurantDescription?: string;
   restaurantType?: Array<string>;
-  resturantDescription?: string;
 }

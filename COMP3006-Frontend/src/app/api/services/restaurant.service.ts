@@ -10,8 +10,8 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { Restaurant } from '../models/restaurant';
-import { restaurantAllGet } from '../fn/restaurant/restaurant-all-get';
-import { RestaurantAllGet$Params } from '../fn/restaurant/restaurant-all-get';
+import { restaurantGetAllGet } from '../fn/restaurant/restaurant-get-all-get';
+import { RestaurantGetAllGet$Params } from '../fn/restaurant/restaurant-get-all-get';
 import { restaurantPost } from '../fn/restaurant/restaurant-post';
 import { RestaurantPost$Params } from '../fn/restaurant/restaurant-post';
 import { restaurantRestaurantIdDelete } from '../fn/restaurant/restaurant-restaurant-id-delete';
@@ -114,31 +114,31 @@ export class RestaurantService extends BaseService {
     );
   }
 
-  /** Path part for operation `restaurantAllGet()` */
-  static readonly RestaurantAllGetPath = '/restaurant/all';
+  /** Path part for operation `restaurantGetAllGet()` */
+  static readonly RestaurantGetAllGetPath = '/restaurant/get/all';
 
   /**
    * Use to get all restaurants
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `restaurantAllGet()` instead.
+   * To access only the response body, use `restaurantGetAllGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  restaurantAllGet$Response(params?: RestaurantAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
-    return restaurantAllGet(this.http, this.rootUrl, params, context);
+  restaurantGetAllGet$Response(params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
+    return restaurantGetAllGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * Use to get all restaurants
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `restaurantAllGet$Response()` instead.
+   * To access the full response (for headers, for example), `restaurantGetAllGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  restaurantAllGet(params?: RestaurantAllGet$Params, context?: HttpContext): Observable<Restaurant> {
-    return this.restaurantAllGet$Response(params, context).pipe(
+  restaurantGetAllGet(params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<Restaurant> {
+    return this.restaurantGetAllGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Restaurant>): Restaurant => r.body)
     );
   }

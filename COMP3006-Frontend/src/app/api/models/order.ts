@@ -6,11 +6,11 @@ export interface Order {
 }>;
   orderTime?: string;
   restaurant?: {
-'_id'?: string;
-'resturantDescription'?: string;
-'restaurantName'?: string;
+'restaurantDescription'?: string;
+'name'?: string;
 'restaurantType'?: Array<string>;
 'currentMenuId'?: string;
+'_id'?: string;
 };
   total?: number;
   userId?: string;

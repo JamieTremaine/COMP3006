@@ -8,11 +8,11 @@ import { RequestBuilder } from '../../request-builder';
 
 import { Restaurant } from '../../models/restaurant';
 
-export interface RestaurantAllGet$Params {
+export interface RestaurantGetAllGet$Params {
 }
 
-export function restaurantAllGet(http: HttpClient, rootUrl: string, params?: RestaurantAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
-  const rb = new RequestBuilder(rootUrl, restaurantAllGet.PATH, 'get');
+export function restaurantGetAllGet(http: HttpClient, rootUrl: string, params?: RestaurantGetAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
+  const rb = new RequestBuilder(rootUrl, restaurantGetAllGet.PATH, 'get');
   if (params) {
   }
 
@@ -26,4 +26,4 @@ export function restaurantAllGet(http: HttpClient, rootUrl: string, params?: Res
   );
 }
 
-restaurantAllGet.PATH = '/restaurant/all';
+restaurantGetAllGet.PATH = '/restaurant/get/all';

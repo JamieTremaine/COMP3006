@@ -1,15 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface Menu {
-  MenuItems?: {
+  MenuItems?: Array<{
 'name'?: string;
-'type'?: Array<string>;
+'itemTypes'?: Array<string>;
+'image'?: buffer;
+'description'?: string;
 'price'?: number;
-'decription'?: string;
 'allegens'?: Array<string>;
-'extras'?: Array<string>;
+'nutritionalInfo'?: {
+'calories'?: number;
 '_id'?: string;
 };
+'extras'?: Array<{
+'required'?: boolean;
+'minimumRequired'?: number;
+'max'?: number;
+'name'?: string;
+'extras'?: Array<{
+'name'?: string;
+'NutritionalInfo'?: {
+'calories'?: number;
+'_id'?: string;
+};
+}>;
+'_id'?: string;
+}>;
+'_id'?: string;
+}>;
   '_id'?: string;
   restaurantId?: string;
   restaurantName?: string;
