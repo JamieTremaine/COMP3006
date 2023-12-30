@@ -3,13 +3,14 @@ import { IAddress, addressSchema } from "./address";
 
 export interface IUser {
     _id?: string
-    userName: string;
+    username: string;
+    type: string;
     addresses?: Array<IAddress>;
 }
 
-const userSchema = new Schema<IUser>({
-    _id: String,
-    userName: String,
+export const userSchema = new Schema<IUser>({
+    username: String,
+    type: String,
     addresses: [addressSchema]
 });
 

@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { routes } from './controllers/index';
 import { connect } from "mongoose";
 import swaggerUi from "swagger-ui-express";
-import openapiSchemas from "./model/openapiSchemas";
 import { getSpec } from './spec'
 import bodyParser from "body-parser";
 import cors from "cors";

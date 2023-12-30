@@ -3,9 +3,32 @@ const serverUrl = "http://localhost:3000/api/v1";
 addData();
 
 async function addData() {
+    addUsers();
     await addRestaurants().then(()=>{
         addMenus();
     });
+}
+
+async function addUsers() {
+    const users = [
+        { username: 'userOne', password: 'passwordOne', type: 'user', addresses: [
+            { addresslineOne: '263 Manchester Road', postcode : 'TR91 8OL' }, { addresslineOne: '26 London Road', addresslineTwo: 'HEMEL HEMPSTEAD', postcode : 'HP46 4ED' }
+        ]},
+        { username: 'userTwo', password: 'passwordTwo',type: 'user', addresses: [{addresslineOne: '41 Albert Road', postcode : 'E75 9BS'}]},
+        { username: 'restaurantOne', password: 'passwordOne', type: 'restaurant',},
+        { username: 'restaurantOne', password: 'passwordTwo', type: 'restaurant'}
+    ]
+
+    users.forEach((user) => {
+        fetch(`${serverUrl}/user`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        });
+    });
+
 }
 
 async function addRestaurants() {
