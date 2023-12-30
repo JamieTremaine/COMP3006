@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { IMenuItem } from '../model/menuItem';
 import { MenuService } from '../svc/menu.service';
 import { IMenu } from '../model/menu';
 import { RestaurantService } from '../svc/restaurant.service';

@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { MenuService } from './services/menu.service';
 import { OrderService } from './services/order.service';
 import { RestaurantService } from './services/restaurant.service';
+import { UserService } from './services/user.service';
 
 /**
  * Module that provides all services and configuration.
@@ -19,6 +20,7 @@ import { RestaurantService } from './services/restaurant.service';
     MenuService,
     OrderService,
     RestaurantService,
+    UserService,
     ApiConfiguration
   ],
 })

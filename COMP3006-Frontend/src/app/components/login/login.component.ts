@@ -19,9 +19,9 @@ export class LoginComponent {
         this.loginForm = this.createForm();
     }
 
-    logIn() {
+    login() {
         const formValue = this.loginForm.value
-        this.ngUserService.logIn(formValue.username, formValue.password).then((result)=>{
+        this.ngUserService.login(formValue.username, formValue.password).then((result)=>{
             if(result) {
                 this.router.navigate(['']);
             } else {

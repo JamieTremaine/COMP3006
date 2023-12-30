@@ -15,7 +15,7 @@ export class NgUserService {
     return this.loggedIn;
   }
 
-  logIn(username: string, password: string): Promise<boolean> {
+  login(username: string, password: string): Promise<boolean> {
     this.loggedIn = true;
     this.LoggedInSubject.next(true);
     return Promise.resolve(true);

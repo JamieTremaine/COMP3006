@@ -10,7 +10,7 @@ export default {
     user: m2s(UserModel),
     restaurant: m2s(RestaurantModel),
     order: m2s(OrderModel),
-    menus: m2s(MenuModel),
+    menu: m2s(MenuModel),
     userlogin: m2s(UserLoginModel),
     createUser: m2s(CreateUserModel)
 };
