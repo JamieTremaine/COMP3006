@@ -5,10 +5,6 @@ cd COMP3006-Backend
 npm i
 npm run build
 
-echo "Building db..."
-cd ../COMP3006-db
-npm i
-
 echo "Building frontend..."
 cd ../COMP3006-Frontend
 npm i

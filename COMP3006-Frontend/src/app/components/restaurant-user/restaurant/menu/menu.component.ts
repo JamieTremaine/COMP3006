@@ -33,7 +33,7 @@ export class MenuComponent extends PageComponent {
         private ngMenuService: NgMenuService) {
         super(headerService);
 
-        this.resturantId = this.activatedRoute.snapshot.url[0].path;
+        this.resturantId = this.activatedRoute.snapshot.url[0]?.path;
     }
 
     ngOnInit(): void {

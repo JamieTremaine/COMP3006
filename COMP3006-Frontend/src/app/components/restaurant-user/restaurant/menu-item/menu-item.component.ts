@@ -30,8 +30,8 @@ export class MenuItemComponent implements OnInit {
         private toaster: ToastService,
         private location: Location ) {
 
-        this.resturantId = this.activatedRoute.snapshot.url[0].path;
-        this.menuItemId = this.activatedRoute.snapshot.url[2].path;
+        this.resturantId = this.activatedRoute.snapshot.url[0]?.path;
+        this.menuItemId = this.activatedRoute.snapshot.url[2]?.path;
     }
 
     ngOnInit(): void {

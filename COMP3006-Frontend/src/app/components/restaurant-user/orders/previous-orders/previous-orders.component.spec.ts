@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PreviousOrdersComponent } from './previous-orders.component';
 
-describe('OrdersComponent', () => {
+describe('PreviousOrdersComponent', () => {
   let component: PreviousOrdersComponent;
   let fixture: ComponentFixture<PreviousOrdersComponent>;
 
