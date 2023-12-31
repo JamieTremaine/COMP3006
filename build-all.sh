@@ -13,6 +13,6 @@ cd ../
 ./build-api.sh
 cd ./COMP3006-Frontend
 npm run build
-npm run test 
+npm run test:headless 
 
 echo "Project built"

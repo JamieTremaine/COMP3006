@@ -1,7 +1,10 @@
 dist: focal
 language: node_js
 node_js:
-- 17
+- 20
+
+addons:
+  chrome: stable
 
 script:
     - bash build-all.sh
