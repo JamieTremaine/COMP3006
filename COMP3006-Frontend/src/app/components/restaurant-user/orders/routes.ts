@@ -5,7 +5,7 @@ import { CurrentOrdersComponent } from "./current-orders/current-orders.componen
 
 export const ORDER_ROUTES : Route[] = [
     { path: 'previous', component: PreviousOrdersComponent },
-    { path: 'active', component: CurrentOrdersComponent },
+    { path: 'current', component: CurrentOrdersComponent },
     { path: ':orderId', component: OrderComponent },
     { path: '', redirectTo: 'previous', pathMatch: 'full'},
     { path: '**', redirectTo: 'previous' }

@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderService } from '../../svc/header.service';
 import { Location } from '@angular/common';
-import { ngOrderService } from '../../svc/order.service';
+import { NgOrderService } from '../../svc/order.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NgUserService } from '../../svc/ng-user.service';
 
@@ -20,9 +20,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     loggedIn: boolean = false;
     private destroy$ = new Subject<void>();
 
-    constructor(protected headerService: HeaderService, private location: Location, public orderService: ngOrderService, public userService: NgUserService) {}
+    constructor(protected headerService: HeaderService, private location: Location, public orderService: NgOrderService, public userService: NgUserService) {}
 
     ngOnInit(): void {
+        this.activeOrders = this.orderService.getNumOrder();
        this.orderService.activeOrders
         .pipe(takeUntil(this.destroy$)).subscribe((activeOrders) => this.activeOrders = activeOrders);
 

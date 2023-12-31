@@ -1,1 +1,28 @@
-<p>current-orders works!</p>
+@if(orders.length !== 0) {
+    @for (order of orders; track $index) {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ order.restaurant?.name }}
+
+                        <button class="btn btn-outline-primary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+} @else {
+    <div class="row">
+        <div class="col-12">
+            <div class="card centered">
+                <div class="card-body">
+                    <h3>No current orders</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+

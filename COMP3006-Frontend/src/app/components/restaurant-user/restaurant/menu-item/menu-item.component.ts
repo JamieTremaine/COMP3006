@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { MenuService } from '../../../../api/services';
 import { NgMenuService } from '../../../../svc/menu.service';
-import { ngOrderService } from '../../../../svc/order.service';
+import { NgOrderService } from '../../../../svc/order.service';
 import { ToastService, Severity } from '../../../../svc/toast.service';
 
 @Component({
@@ -23,11 +23,12 @@ export class MenuItemComponent implements OnInit {
     menuItem?: MenuItem 
     extrasForm?: FormGroup;
 
-    constructor(private orderService: ngOrderService, 
+    constructor(private orderService: NgOrderService, 
         private activatedRoute: ActivatedRoute, 
         private ngMenuService: NgMenuService, 
         private menuService: MenuService, 
-        private toaster: ToastService ) {
+        private toaster: ToastService,
+        private location: Location ) {
 
         this.resturantId = this.activatedRoute.snapshot.url[0].path;
         this.menuItemId = this.activatedRoute.snapshot.url[2].path;
@@ -63,6 +64,7 @@ export class MenuItemComponent implements OnInit {
 
         this.orderService.addToOrder(this.resturantId, order);  
         this.toaster.show('Order added', Severity.success, 5000);
+        this.location.back()
     }
 
     getExtras(): Array<MenuExtras> {

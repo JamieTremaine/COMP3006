@@ -42,4 +42,8 @@ export class NgUserService {
             this.LoggedInSubject.next(true);
         }
     }
+
+    getUser(): User | undefined {
+        return this.user;
+    }
 }

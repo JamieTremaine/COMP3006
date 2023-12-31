@@ -7,7 +7,7 @@ import { Menu } from '../../../../api/models';
 import { MenuService } from '../../../../api/services';
 import { HeaderService } from '../../../../svc/header.service';
 import { NgMenuService } from '../../../../svc/menu.service';
-import { ngOrderService } from '../../../../svc/order.service';
+import { NgOrderService } from '../../../../svc/order.service';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class MenuComponent extends PageComponent {
     menu?: Menu;
 
     constructor(protected override headerService: HeaderService, 
-        private orderService: ngOrderService, 
+        private orderService: NgOrderService, 
         private activatedRoute: ActivatedRoute, 
         private menuService: MenuService, 
         private ngMenuService: NgMenuService) {
