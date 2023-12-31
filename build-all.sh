@@ -16,4 +16,4 @@ npm run build
 npm run test:headless 
 
 echo "Project built"
-exit 1
+exit 0
