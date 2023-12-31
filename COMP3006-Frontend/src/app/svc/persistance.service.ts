@@ -52,6 +52,18 @@ export class PersistanceService {
         catch {}
     }
 
+    removeOrder(userId: string, restaurantId: string) {
+        let allOrders = this.getOrdersFromLocalStorage();
+        if(allOrders) {
+            const idx = allOrders?.findIndex(order => order.userId === userId && order.restaurant?._id === restaurantId);
+            if(idx > -1) {
+                allOrders?.splice(idx, 1);
+            }
+            localStorage.setItem('restaurant-ordering-system-user-orders', JSON.stringify(allOrders))
+        }
+
+    }
+
     getOrders(userId: string): Array<Order> | undefined {
        const usersOrders = this.getOrdersFromLocalStorage();
        return usersOrders?.filter((order) => order.userId === userId);

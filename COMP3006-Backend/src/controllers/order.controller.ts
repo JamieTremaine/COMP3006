@@ -11,7 +11,7 @@ const path = '/order'
 
 /**
  * @openapi
- * /order/{userId}:
+ * /order/{userId}/recent:
  *  get:
  *      description: Use to get a singular order by id
  *      parameters:
@@ -29,10 +29,40 @@ const path = '/order'
  *          '500':
  *              description: other server error
  */
-orderRoutes.get(`${path}/:userId`, (req, res)=>{
+orderRoutes.get(`${path}/:userId/recent`, (req, res)=>{
 
     orderService.getUserOrders(req.params.userId).then((result) => {
         res.send(result);
+    })
+    .catch(()=> res.status(500).send());
+})
+
+/**
+ * @openapi
+ * /order/{orderId}:
+ *  get:
+ *      description: Use to get a singular order by id
+ *      parameters:
+ *      -   in: path
+ *          name: orderId
+ *      tags:
+ *      -   order
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/order'
+ *          '500':
+ *              description: other server error
+ */
+orderRoutes.get(`${path}/:orderId/`, (req, res)=>{
+
+    orderService.getOrder(req.params.orderId).then((result) => {
+        result !== null ?
+            res.send(result) :
+            res.status(404).send(`Could not find order with id ${req.params.orderId}`);
     })
     .catch(()=> res.status(500).send());
 })
@@ -72,7 +102,7 @@ orderRoutes.post(path, (req, res) => {
         if (err instanceof InvalidArgumentError) {
             res.status(400).send(err.message);
         } else {
-            res.status(500).send();
+            res.status(500).send('this one?');
         }
     });
 });

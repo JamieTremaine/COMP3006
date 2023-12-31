@@ -8,11 +8,15 @@ export class OrderService {
         return await OrderModel.find({userId: userId}).limit(50).exec();
     }
 
+    public async getOrder(orderId: string): Promise<IOrder| null> {
+        return await OrderModel.findById(orderId)
+    }
+
 
     public async addOrder(order: IOrder): Promise<IOrder> {
 
-        return this.verifyOrder(order).then(async (result)=>{
-            if (result) {
+        return this.verifyOrder(order).then(async (result)=> {
+            if (result === false) {
                 throw new InvalidArgumentError("This order does not match the menu items. Has it been altered?");
             }
             return await OrderModel.create(order);

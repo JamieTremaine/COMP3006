@@ -2,6 +2,13 @@
 /* eslint-disable */
 export interface Order {
   '_id'?: string;
+  active?: boolean;
+  address?: {
+'addresslineOne'?: string;
+'addressLineTwo'?: string;
+'postcode'?: string;
+'_id'?: string;
+};
   items?: Array<{
 'name'?: string;
 'itemTypes'?: Array<string>;

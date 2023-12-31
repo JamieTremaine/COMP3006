@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Order } from '../api/models';
 import { PersistanceService } from './persistance.service';
 import { NgUserService } from './ng-user.service';
+import { OrderService } from '../api/services';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,7 @@ export class NgOrderService implements OnDestroy {
 
     private destroy$ = new Subject<void>();
 
-    constructor(private persistanceService: PersistanceService, private ngUserService: NgUserService) { 
+    constructor(private persistanceService: PersistanceService, private ngUserService: NgUserService, private orderService: OrderService) { 
         this.ngUserService.LoggedInSubject.pipe(takeUntil(this.destroy$)).subscribe((value) => {
             if(value) {
                 const orders = this.persistanceService.getOrders(ngUserService.getUser()?._id as string)
@@ -74,5 +75,19 @@ export class NgOrderService implements OnDestroy {
 
     getNumOrder(): number {
         return this.currentOrders.size;
+    }
+
+    cancelOrder(restaurantId: string) {
+        const order = this.getOrder(restaurantId);
+        this.currentOrders.delete(restaurantId);
+
+        if(order && order.userId && order.restaurant?._id) {
+            this.persistanceService.removeOrder(order.userId, order.restaurant._id);
+        }
+        this.activeOrders.next(this.currentOrders.size);
+    }
+
+    sendOrder(order: Order): Observable<Order> {
+        return this.orderService.orderPost({body: order});
     }
 }

@@ -12,10 +12,12 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { Order } from '../models/order';
 import { orderOrderIdDelete } from '../fn/order/order-order-id-delete';
 import { OrderOrderIdDelete$Params } from '../fn/order/order-order-id-delete';
+import { orderOrderIdGet } from '../fn/order/order-order-id-get';
+import { OrderOrderIdGet$Params } from '../fn/order/order-order-id-get';
 import { orderPost } from '../fn/order/order-post';
 import { OrderPost$Params } from '../fn/order/order-post';
-import { orderUserIdGet } from '../fn/order/order-user-id-get';
-import { OrderUserIdGet$Params } from '../fn/order/order-user-id-get';
+import { orderUserIdRecentGet } from '../fn/order/order-user-id-recent-get';
+import { OrderUserIdRecentGet$Params } from '../fn/order/order-user-id-recent-get';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService extends BaseService {
@@ -23,60 +25,60 @@ export class OrderService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `orderUserIdGet()` */
-  static readonly OrderUserIdGetPath = '/order/{userId}';
+  /** Path part for operation `orderUserIdRecentGet()` */
+  static readonly OrderUserIdRecentGetPath = '/order/{userId}/recent';
 
   /**
    * Use to get a singular order by id
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `orderUserIdGet()` instead.
+   * To access only the response body, use `orderUserIdRecentGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  orderUserIdGet$Response(params: OrderUserIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
-    return orderUserIdGet(this.http, this.rootUrl, params, context);
+  orderUserIdRecentGet$Response(params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
+    return orderUserIdRecentGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * Use to get a singular order by id
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `orderUserIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `orderUserIdRecentGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  orderUserIdGet(params: OrderUserIdGet$Params, context?: HttpContext): Observable<Order> {
-    return this.orderUserIdGet$Response(params, context).pipe(
+  orderUserIdRecentGet(params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<Order> {
+    return this.orderUserIdRecentGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Order>): Order => r.body)
     );
   }
 
-  /** Path part for operation `orderPost()` */
-  static readonly OrderPostPath = '/order';
+  /** Path part for operation `orderOrderIdGet()` */
+  static readonly OrderOrderIdGetPath = '/order/{orderId}';
 
   /**
-   * add a new order
+   * Use to get a singular order by id
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `orderPost()` instead.
+   * To access only the response body, use `orderOrderIdGet()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
-  orderPost$Response(params: OrderPost$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
-    return orderPost(this.http, this.rootUrl, params, context);
+  orderOrderIdGet$Response(params: OrderOrderIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
+    return orderOrderIdGet(this.http, this.rootUrl, params, context);
   }
 
   /**
-   * add a new order
+   * Use to get a singular order by id
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `orderPost$Response()` instead.
+   * To access the full response (for headers, for example), `orderOrderIdGet$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
-  orderPost(params: OrderPost$Params, context?: HttpContext): Observable<Order> {
-    return this.orderPost$Response(params, context).pipe(
+  orderOrderIdGet(params: OrderOrderIdGet$Params, context?: HttpContext): Observable<Order> {
+    return this.orderOrderIdGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Order>): Order => r.body)
     );
   }
@@ -107,6 +109,35 @@ export class OrderService extends BaseService {
   orderOrderIdDelete(params: OrderOrderIdDelete$Params, context?: HttpContext): Observable<void> {
     return this.orderOrderIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `orderPost()` */
+  static readonly OrderPostPath = '/order';
+
+  /**
+   * add a new order
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `orderPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  orderPost$Response(params: OrderPost$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
+    return orderPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * add a new order
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `orderPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  orderPost(params: OrderPost$Params, context?: HttpContext): Observable<Order> {
+    return this.orderPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Order>): Order => r.body)
     );
   }
 

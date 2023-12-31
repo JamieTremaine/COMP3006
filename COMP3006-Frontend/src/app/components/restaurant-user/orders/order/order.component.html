@@ -1,26 +1,51 @@
-@if(orders.length !== 0) {
-    @for (order of orders; track $index) {
+<div class="card">
+    <div class="card-body">
+        <div class="row">           
+            <div class="col-12">
+                <h4>{{ order?.restaurant?.name }}</h4>
+                <p>{{ order?.restaurant?.description }}</p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        {{ order.restaurant?.name }}
-                    </div>
-                </div>
+                <h5>Total:</h5>
+                {{ getTotal(order?.items) | currency }}
             </div>
         </div>
-    }
-} @else {
-    <div class="row">
-        <div class="col-12">
-            <div class="card centered">
-                <div class="card-body">
-                    <h3>No current orders</h3>
-                </div>
-            </div>
 
+        <div class="row mt-2 border-top">
+            @for (item of order?.items; track $index) {
+                <div class="col-6">
+                    {{item.name}}
+                </div>
+                <div class="col-6">
+                    @for (itemExtras of item.extras; track $index) {
+                        <div class="col-6">
+                            {{itemExtras.name}}
+                        </div>
+                        <div class="col-6">
+                            @for (extra of itemExtras.extras; track $index) {
+                                {{ extra.name }},
+                            }
+                        </div>
+    
+                    }
+                </div>
+            }
+        </div>
+        <div class="row mt-4 border-top">
+            <h6>Address:</h6>
+            <select class="form-control" [(ngModel)]="address">
+                @for (address of user?.addresses; track $index) {
+                    <option [value]="address">{{address.addresslineOne}}, {{address.postcode}}</option>
+                }
+            </select>
+        </div>
+
+        <div class="row mt-2">
+            <button (click)="sendOrder()" class="btn btn-primary">Order</button>
         </div>
     </div>
-}
+</div>
 
 

@@ -1,6 +1,6 @@
 @if(orders.length !== 0) {
     @for (order of orders; track $index) {
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -14,8 +14,8 @@
                             </div>
                             <div class="col-lg-2 col-sm-12">
                            
-                                <button class="btn btn-outline-primary me-2">view order</button>
-                                <button (click)="cancelOrder(order)" class="btn btn-outline-primary">Cancel</button>
+                                <button [routerLink]="[order.restaurant?._id]" class="btn btn-outline-primary me-2">view order</button>
+                                <button (click)="cancelOrder(order.restaurant?._id)" class="btn btn-outline-primary">Cancel</button>
                             </div>
                         </div>
                     </div>

@@ -4,11 +4,12 @@ import { Order } from '../../../../api/models';
 import { RestaurantService } from '../../../../api/services';
 import { NgOrderService } from '../../../../svc/order.service';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-current-orders',
     standalone: true,
-    imports: [CurrencyPipe],
+    imports: [CurrencyPipe, RouterLink],
     templateUrl: './current-orders.component.html',
     styleUrl: './current-orders.component.scss'
 })
@@ -43,8 +44,12 @@ export class CurrentOrdersComponent implements OnInit {
         return total;
     }
 
-    cancelOrder(order: Order) {
-        
+    cancelOrder(restaurantId?: string) {
+        console.log(this.orders)
+        if(restaurantId) {
+            this.ngOrderService.cancelOrder(restaurantId);
+            this.orders = this.ngOrderService.getAllOrders();
+        }         
     }
 
 }
