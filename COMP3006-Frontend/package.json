@@ -8,7 +8,7 @@
     "build-all": "npm run build-spec && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:headless": "ng test --browsers ChromeHeadless",
+    "test:headless": "ng test --browsers ChromeHeadless && exit 1",
     "serve:ssr:takeaway-ordering-system": "node dist/takeaway-ordering-system/server/server.mjs",
     "build-spec": "npx ng-openapi-gen --input src/app/api/spec.json --output src/app/api"
   },

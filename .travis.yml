@@ -2,9 +2,11 @@ dist: focal
 language: node_js
 node_js:
 - 20
-
 addons:
   chrome: stable
+
+before_install:
+  - chmod +x build-api.sh
 
 script:
     - bash build-all.sh
