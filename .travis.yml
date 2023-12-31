@@ -1,4 +1,6 @@
-language: bash
+language: node_js
+node_js:
+- 20
 
 script:
     - bash build-all.sh
