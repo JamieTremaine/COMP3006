@@ -37,7 +37,6 @@ restaurantRoutes.get(`${path}/:restaurantId`, (req, res) => {
             res.send(result);
     })
     .catch(()=> res.status(500).send());
-
 });
 
 /**

@@ -10,7 +10,6 @@ const userService = new UserService();
 
 const path = '/user'
 
-
 /**
  * @openapi
  * /user/login:
@@ -88,5 +87,36 @@ userRoutes.post((`${path}`), (req, res) => {
             res.status(404).send(result.denialReason);
         }
     });
+});
+
+/**
+ * @openapi
+ * /user/{username}:
+ *  get:
+ *      description: Use to get a user
+ *      parameters:
+ *      -   in: path
+ *          name: username
+ *      tags:
+ *      -   user
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/user'
+ *          '404':
+ *              description: user not found
+ *          '500':
+ *              description: other server error
+ */
+userRoutes.get(`${path}/:username`, (req, res) => {
+    userService.getUserByUsername(req.params.username).then((result) => {
+        result == null ?
+            res.status(404).send(`username: ${req.params.username} could not be found`):
+            res.send(result);
+    })
+    .catch(()=> res.status(500).send());
 });
 

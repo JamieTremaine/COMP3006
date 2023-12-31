@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
        this.orderService.activeOrders
         .pipe(takeUntil(this.destroy$)).subscribe((activeOrders) => this.activeOrders = activeOrders);
 
+        this.loggedIn = this.userService.isLoggedIn();
         this.userService.LoggedInSubject
         .pipe(takeUntil(this.destroy$)).subscribe((loggedIn) => this.loggedIn = loggedIn);
     }
@@ -38,5 +39,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     onBack(): void {
         this.location.back()
     }
-
 }

@@ -17,7 +17,7 @@ export class UserService {
             const hash = crypto.pbkdf2Sync(password,
                 userToLogin?.salt, this.iterations, this.keylen, `sha512`).toString(`hex`);
 
-            if(hash === userToLogin.password) {
+            if(crypto.timingSafeEqual(Buffer.from(hash, 'utf8'), Buffer.from(userToLogin.password, 'utf8'))) {
                 login = true;
             }
         }

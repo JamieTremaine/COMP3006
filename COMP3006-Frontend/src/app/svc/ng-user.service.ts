@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, lastValueFrom } from 'rxjs';
 import { UserService } from '../api/services';
 import { User, Userlogin } from '../api/models';
+import { PersistanceService } from './persistance.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +13,13 @@ export class NgUserService {
   private user?: User;
   public LoggedInSubject = new Subject<boolean>();
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private persistanceService: PersistanceService) { }
 
   public isLoggedIn(): boolean {
     return this.loggedIn;
   }
 
     login(username: string, password: string): Promise<boolean> {
-
         const loginCreds: Userlogin = { username: username , password: password };
 
         return lastValueFrom(this.userService.userLoginPost({body: loginCreds})).then((result) => {
@@ -27,11 +27,19 @@ export class NgUserService {
                 this.user = result;
                 this.loggedIn = true;
                 this.LoggedInSubject.next(true);
+                this.persistanceService.setUser(result);
                 return true;
             } else {
                 return false;
             }
-        }).catch(() => false);
-        
+        }).catch(() => false);   
+    }
+
+    setUser(user: User | null) {
+        if(user !== null) {
+            this.user = user;
+            this.loggedIn = true;
+            this.LoggedInSubject.next(true);
+        }
     }
 }
