@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IMenuItem } from "./menuItem";
+import { IMenuItem, menuItemSchema } from "./menuItem";
 import { IRestaurant, Restaurant, restaurantSchema } from "./restaurant";
 
 export interface IOrder {
@@ -17,7 +17,7 @@ const orderSchema = new Schema<IOrder>({
     _id: String,
     userId: String,
     restaurant: restaurantSchema,
-    items: { type: Array<IMenuItem>, required: true},
+    items: [menuItemSchema],
     total: Number,
     orderTime: Date
 });

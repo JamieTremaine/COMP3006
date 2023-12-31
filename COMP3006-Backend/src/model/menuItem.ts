@@ -4,9 +4,8 @@ import { IMenuExtras, menuExtraSchema } from "./MenuExtras";
 
 export interface IMenuItem {
     _id: string,
-    name: String,
+    name: string,
     itemTypes: Array<string>,
-    image: Buffer | null,
     description: string,
     price: number,
     allegens: Array<string>
@@ -17,7 +16,6 @@ export interface IMenuItem {
 export const menuItemSchema = new Schema<IMenuItem>({
     name: String,
     itemTypes:  [String],
-    image: Buffer,
     description: String,
     price: Number,
     allegens: [String],

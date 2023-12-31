@@ -37,7 +37,7 @@ export class NgOrderService implements OnDestroy {
     addToOrder(resturantId: string, item: MenuItem) {
         if (this.currentOrders.has(resturantId)) {
             let order = this.currentOrders.get(resturantId) as Order;
-            order?.items.push(item);
+            order?.items?.push(item);
             this.currentOrders.set(resturantId, order);
         } else {
             const order: Order = { restaurant: {_id: resturantId }, items: [item], userId: this.ngUserService.getUser()?._id};
@@ -52,10 +52,10 @@ export class NgOrderService implements OnDestroy {
         if (this.currentOrders.has(resturantId)) {
             let order = this.currentOrders.get(resturantId) as Order;
 
-            const idx = order.items.indexOf(item);
-            order.items = order.items.slice(idx, 1);
+            const idx = order.items?.indexOf(item);
+            order.items = order.items?.slice(idx, 1);
 
-            if (order.items.length === 0) {
+            if (order.items?.length === 0) {
                 this.currentOrders.delete(resturantId);
                 this.activeOrders.next(this.currentOrders.size);
             } else {

@@ -4,9 +4,20 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        {{ order.restaurant?.name }}
-
-                        <button class="btn btn-outline-primary">Cancel</button>
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-12">
+                                <div class="d-flex justify-content-between">
+                                    <h6>{{ order.restaurant?.name }}</h6>   
+                                   <p class="mb-0">Items: {{ order.items?.length }}</p>
+                                </div>
+                                <p class="mb-lg-0">Total: {{ getTotal(order.items) | currency }}</p>        
+                            </div>
+                            <div class="col-lg-2 col-sm-12">
+                           
+                                <button class="btn btn-outline-primary me-2">view order</button>
+                                <button (click)="cancelOrder(order)" class="btn btn-outline-primary">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

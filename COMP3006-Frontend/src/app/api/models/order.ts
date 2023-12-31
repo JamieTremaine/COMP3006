@@ -2,7 +2,31 @@
 /* eslint-disable */
 export interface Order {
   '_id'?: string;
-  items: Array<{
+  items?: Array<{
+'name'?: string;
+'itemTypes'?: Array<string>;
+'description'?: string;
+'price'?: number;
+'allegens'?: Array<string>;
+'nutritionalInfo'?: {
+'calories'?: number;
+'_id'?: string;
+};
+'extras'?: Array<{
+'required'?: boolean;
+'minimumRequired'?: number;
+'max'?: number;
+'name'?: string;
+'extras'?: Array<{
+'name'?: string;
+'NutritionalInfo'?: {
+'calories'?: number;
+'_id'?: string;
+};
+}>;
+'_id'?: string;
+}>;
+'_id'?: string;
 }>;
   orderTime?: string;
   restaurant?: {

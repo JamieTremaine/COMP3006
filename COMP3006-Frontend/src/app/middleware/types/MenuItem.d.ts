@@ -1,6 +1,6 @@
 type MenuItem = {
     _id?: string | undefined,
-    name?: String | undefined,
+    name?: string | undefined,
     itemTypes?: Array<string>,
     image?: Buffer | null,
     description?: string | undefined,
