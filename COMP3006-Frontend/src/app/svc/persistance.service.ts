@@ -77,4 +77,8 @@ export class PersistanceService {
             return null;
         }
     }
+
+    logout() {
+        localStorage.removeItem('restaurant-ordering-system-user-info');
+    }
 }

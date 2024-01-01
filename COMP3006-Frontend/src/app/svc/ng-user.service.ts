@@ -3,6 +3,7 @@ import { Subject, lastValueFrom } from 'rxjs';
 import { UserService } from '../api/services';
 import { User, Userlogin } from '../api/models';
 import { PersistanceService } from './persistance.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class NgUserService {
   private user?: User;
   public LoggedInSubject = new Subject<boolean>();
 
-  constructor(private userService: UserService, private persistanceService: PersistanceService) { }
+  constructor(private userService: UserService, private persistanceService: PersistanceService, private router: Router) { }
 
   public isLoggedIn(): boolean {
     return this.loggedIn;
@@ -33,6 +34,13 @@ export class NgUserService {
                 return false;
             }
         }).catch(() => false);   
+    }
+
+    logout() {
+        this.loggedIn = false;
+        this.user = undefined;
+        this.LoggedInSubject.next(false);
+        this.router.navigate(['login']);
     }
 
     setUser(user: User | null) {

@@ -39,6 +39,7 @@
                                 pending orders 
                                 <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeOrders }}</span></button>
                             <button [routerLink]="['orders', 'previous']" ngbDropdownItem class="btn">Previous orders</button>
+                            <button (click)="logout()" ngbDropdownItem class="btn">Log out</button>
                         </div>
                     </li>
                 </ul>

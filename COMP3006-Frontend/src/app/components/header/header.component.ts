@@ -7,6 +7,7 @@ import { NgOrderService } from '../../svc/order.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NgUserService } from '../../svc/ng-user.service';
 import { WebsocketService } from '../../svc/websocket.service';
+import { PersistanceService } from '../../svc/persistance.service';
 
 @Component({
     selector: 'app-header',
@@ -23,7 +24,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     status: Array<string> = [];
     private destroy$ = new Subject<void>();
 
-    constructor(protected headerService: HeaderService, private location: Location, public orderService: NgOrderService, public userService: NgUserService, private websocketService: WebsocketService) {}
+    constructor(
+        protected headerService: HeaderService, 
+        private location: Location, 
+        public orderService: NgOrderService, 
+        public userService: NgUserService, 
+        private websocketService: WebsocketService,
+        private persistanceService: PersistanceService,
+        ) {}
 
     ngOnInit(): void {
         this.activeOrders = this.orderService.getNumOrder();
@@ -54,7 +62,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     notificationsClicked() {
-        this.activeNotifications = 0;
-        
+        this.activeNotifications = 0;   
+    }
+
+    logout() {
+        this.persistanceService.logout();
+        this.userService.logout()
     }
 }
