@@ -15,6 +15,7 @@ export class WebsocketService implements OnDestroy {
     private socket?: Socket<DefaultEventsMap, DefaultEventsMap> 
 
     onMessage = new Subject<void>();
+    statusChange = new Subject<string>();
 
 
 
@@ -47,6 +48,11 @@ export class WebsocketService implements OnDestroy {
 
         this.socket.on('new-order', (message)=> {
             this.ngOrderSerive.addNewOrder(message as Order);
+        })
+
+        this.socket.on('status-change', (message)=> {
+            this.statusChange.next(message);
+            console.log('status change');
         })
     }
 

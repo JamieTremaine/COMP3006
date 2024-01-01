@@ -37,13 +37,13 @@ export class ResturantHomeComponent implements OnInit, OnDestroy {
 
     nextStage(order: Order) {
         if(order.stage === 'recieved') {
-            this.websocketService.sendMessage('preparing', order._id,);
+            this.websocketService.sendMessage('Your order is being prepared', order._id,);
             order.stage = 'preparing'; 
         } else if(order.stage === 'preparing'){
-            this.websocketService.sendMessage('out for delivery', order._id);
+            this.websocketService.sendMessage('Your order is out for delivery', order._id);
             order.stage = 'out for delivery'; 
         } else if(order.stage === 'out for delivery') {
-            this.websocketService.sendMessage('delivered', order._id);
+            this.websocketService.sendMessage('Order delivered!', order._id);
             const idx = this.orders?.findIndex(o => o === order);
 
             if(idx && idx > -1) {

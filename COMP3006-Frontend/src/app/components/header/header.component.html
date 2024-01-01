@@ -14,12 +14,17 @@
             @if(loggedIn){
                 <ul class="navbar-nav ms-md-auto d-flex flex-row">
                     <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
-                        <a ngbDropdownToggle class="nav-link dropdown-toggle">
+                        <a (click)="notificationsClicked()" ngbDropdownToggle class="nav-link dropdown-toggle">
                             <i class="fas fa-bell"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger ms-1">1</span>
+                            @if (activeNotifications !== 0) {
+                                <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeNotifications }}</span>
+                            }
                         </a>
                         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
-                            <p class="mb-0" ngbDropdownItem>Your order is on the way!</p>
+                            @for (item of status; track $index) {
+                                <p class="mb-0" ngbDropdownItem>{{ item }}</p>
+                            }
+                            
                         </div>
                     </li>
                     <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">

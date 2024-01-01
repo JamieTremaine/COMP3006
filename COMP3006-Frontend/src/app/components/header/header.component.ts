@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { NgOrderService } from '../../svc/order.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NgUserService } from '../../svc/ng-user.service';
+import { WebsocketService } from '../../svc/websocket.service';
 
 @Component({
     selector: 'app-header',
@@ -17,10 +18,12 @@ import { NgUserService } from '../../svc/ng-user.service';
 export class HeaderComponent implements OnInit, OnDestroy {
 
     activeOrders: number = 0;
+    activeNotifications = 0;
     loggedIn: boolean = false;
+    status: Array<string> = [];
     private destroy$ = new Subject<void>();
 
-    constructor(protected headerService: HeaderService, private location: Location, public orderService: NgOrderService, public userService: NgUserService) {}
+    constructor(protected headerService: HeaderService, private location: Location, public orderService: NgOrderService, public userService: NgUserService, private websocketService: WebsocketService) {}
 
     ngOnInit(): void {
         this.activeOrders = this.orderService.getNumOrder();
@@ -30,6 +33,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.loggedIn = this.userService.isLoggedIn();
         this.userService.LoggedInSubject
         .pipe(takeUntil(this.destroy$)).subscribe((loggedIn) => this.loggedIn = loggedIn);
+
+        this.websocketService.statusChange
+        .pipe(takeUntil(this.destroy$)).subscribe((status) => { 
+            this.activeNotifications++;
+            this.status.push(status); 
+            if(this.status.length > 4) {
+                this.status.shift();
+            }
+        })
     }
 
     ngOnDestroy(): void {
@@ -39,5 +51,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     onBack(): void {
         this.location.back()
+    }
+
+    notificationsClicked() {
+        this.activeNotifications = 0;
+        
     }
 }

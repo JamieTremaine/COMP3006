@@ -3,9 +3,12 @@ import { IStatus } from "../model/status";
 import { IOrder, OrderModel } from "../model/order";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { Server } from "socket.io";
+import { OrderService } from "./order.service";
 
 export class WebsocketService {
     private static websocketService?: WebsocketService;
+
+    private orderService: OrderService = OrderService.getService();
 
     private io?: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
 
@@ -31,8 +34,7 @@ export class WebsocketService {
     }
 
     public async updateStatus(status: IStatus): Promise<Array<IConnection>> {
-
-        const updatedOrder = await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status });
+        const updatedOrder = await this.orderService.updateOrderStatus(status);
 
         if(updatedOrder) {
             return await ConnectionModel.find({userId: updatedOrder!.userId});

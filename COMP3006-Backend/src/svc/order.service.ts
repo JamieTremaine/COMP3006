@@ -5,6 +5,8 @@ import { IOrder, OrderModel } from "../model/order";
 import { UserService } from "./user.service";
 import { WebsocketService } from "./websocket.service";
 import { UserModel } from "../model/user";
+import { IStatus } from "../model/status";
+import { ConnectionModel, IConnection } from "../model/connections";
 
 export class OrderService {
 
@@ -93,6 +95,15 @@ export class OrderService {
         });
 
         return orderSize === matches?.length ? true : false;
+    }
+
+    public async updateOrderStatus(status: IStatus): Promise<IOrder | null> {
+
+        if(status.status === 'delivered') {
+            return await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status, active: false });
+        } else {
+            return await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status });
+        }
     }
 
 }
