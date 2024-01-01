@@ -37,7 +37,7 @@
             <h6>Address:</h6>
             <select class="form-control" [(ngModel)]="address">
                 @for (address of user?.addresses; track $index) {
-                    <option [value]="address">{{address.addresslineOne}}, {{address.postcode}}</option>
+                    <option [ngValue]="address">{{address.addresslineOne}}, {{address.postcode}}</option>
                 }
             </select>
         </div>

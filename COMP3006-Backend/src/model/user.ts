@@ -6,12 +6,14 @@ export interface IUser {
     username: string;
     type: string;
     addresses?: Array<IAddress>;
+    restaurantId?: string;
 }
 
 export const userSchema = new Schema<IUser>({
     username: String,
     type: String,
-    addresses: [addressSchema]
+    addresses: [addressSchema],
+    restaurantId: { type: String, required: false }
 });
 
 export const UserModel = model<IUser>('users', userSchema);

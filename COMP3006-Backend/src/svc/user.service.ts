@@ -43,9 +43,13 @@ export class UserService {
             this.iterations, this.keylen, `sha512`).toString(`hex`);
 
         const userLogin: IUserLogin = { username: userToCreate.username , password: hash, salt: salt };
-        const userToAdd: IUser = {username: userToCreate.username, type: userToCreate.type, addresses: userToCreate.addresses };
-
-
+        
+        let userToAdd: IUser;
+        if(userToCreate.type === 'user') {
+            userToAdd = {username: userToCreate.username, type: userToCreate.type, addresses: userToCreate.addresses };
+        } else {
+            userToAdd = {username: userToCreate.username, type: userToCreate.type, addresses: userToCreate.addresses, restaurantId: userToCreate.restaurantId };
+        }
 
         const createdLogin = await UserLoginModel.create(userLogin);
         const createdUser = await UserModel.create(userToAdd);

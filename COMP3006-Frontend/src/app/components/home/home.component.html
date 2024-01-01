@@ -1,1 +1,6 @@
-<app-user-home></app-user-home>
+@if(userType === 'user') {
+    <app-user-home></app-user-home>
+} @else {
+    <app-restaurant-home></app-restaurant-home>
+}
+

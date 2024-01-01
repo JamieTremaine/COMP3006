@@ -6,13 +6,15 @@ export interface ICreateUser {
     password: string;
     addresses?: Array<IAddress>;
     type: string
+    restaurantId? : string;
 }
 
 const createUserSchema = new Schema<ICreateUser>({
     username: String,
     password: String,
     addresses: [addressSchema],
-    type: String
+    type: String,
+    restaurantId: { type: String , required: false }
 });
 
 //I want to create a schema for the openapi spec but dont *actually* want a collection for this

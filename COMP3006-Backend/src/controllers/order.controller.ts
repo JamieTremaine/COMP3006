@@ -69,6 +69,36 @@ orderRoutes.get(`${path}/:orderId/`, (req, res)=>{
 
 /**
  * @openapi
+ * /order/{restaurantId}/active:
+ *  get:
+ *      description: Use to get all active orders for a reasturant
+ *      parameters:
+ *      -   in: path
+ *          name: restaurantId
+ *      tags:
+ *      -   order
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: "array"
+ *                          items:
+ *                              $ref: '#/components/schemas/order'
+ *          '500':
+ *              description: other server error
+ */
+orderRoutes.get(`${path}/:restaurantId/active`, (req, res)=>{
+
+    orderService.getActiveOrders(req.params.restaurantId).then((result) => {
+        res.send(result)
+    })
+    .catch(()=> res.status(500).send());
+})
+
+/**
+ * @openapi
  * /order:
  *  post:
  *      description: add a new order

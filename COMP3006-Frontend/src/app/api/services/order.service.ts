@@ -16,6 +16,8 @@ import { orderOrderIdGet } from '../fn/order/order-order-id-get';
 import { OrderOrderIdGet$Params } from '../fn/order/order-order-id-get';
 import { orderPost } from '../fn/order/order-post';
 import { OrderPost$Params } from '../fn/order/order-post';
+import { orderRestaurantIdActiveGet } from '../fn/order/order-restaurant-id-active-get';
+import { OrderRestaurantIdActiveGet$Params } from '../fn/order/order-restaurant-id-active-get';
 import { orderUserIdRecentGet } from '../fn/order/order-user-id-recent-get';
 import { OrderUserIdRecentGet$Params } from '../fn/order/order-user-id-recent-get';
 
@@ -109,6 +111,35 @@ export class OrderService extends BaseService {
   orderOrderIdDelete(params: OrderOrderIdDelete$Params, context?: HttpContext): Observable<void> {
     return this.orderOrderIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `orderRestaurantIdActiveGet()` */
+  static readonly OrderRestaurantIdActiveGetPath = '/order/{restaurantId}/active';
+
+  /**
+   * Use to get all active orders for a reasturant
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `orderRestaurantIdActiveGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderRestaurantIdActiveGet$Response(params: OrderRestaurantIdActiveGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Order>>> {
+    return orderRestaurantIdActiveGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Use to get all active orders for a reasturant
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `orderRestaurantIdActiveGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderRestaurantIdActiveGet(params: OrderRestaurantIdActiveGet$Params, context?: HttpContext): Observable<Array<Order>> {
+    return this.orderRestaurantIdActiveGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Order>>): Array<Order> => r.body)
     );
   }
 

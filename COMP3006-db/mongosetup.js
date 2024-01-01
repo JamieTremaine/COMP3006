@@ -3,20 +3,23 @@ const serverUrl = "http://localhost:3000/api/v1";
 addData();
 
 async function addData() {
-    addUsers();
     await addRestaurants().then(()=>{
         addMenus();
+        addUsers();
     });
 }
 
 async function addUsers() {
+    const restaurantPromise = await fetch(`${serverUrl}/restaurant/get/all`);
+    const restaurants = await restaurantPromise.json();
+
     const users = [
         { username: 'userOne', password: 'passwordOne', type: 'user', addresses: [
             { addresslineOne: '263 Manchester Road', postcode : 'TR91 8OL' }, { addresslineOne: '26 London Road', addresslineTwo: 'HEMEL HEMPSTEAD', postcode : 'HP46 4ED' }
         ]},
         { username: 'userTwo', password: 'passwordTwo',type: 'user', addresses: [{addresslineOne: '41 Albert Road', postcode : 'E75 9BS'}]},
-        { username: 'restaurantOne', password: 'passwordOne', type: 'restaurant',},
-        { username: 'restaurantOne', password: 'passwordTwo', type: 'restaurant'}
+        { username: 'restaurantOne', password: 'passwordOne', type: 'restaurant', restaurantId: restaurants[0]._id},
+        { username: 'restaurantTwo', password: 'passwordTwo', type: 'restaurant', restaurantId: restaurants[1]._id}
     ]
 
     users.forEach((user) => {

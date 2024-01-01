@@ -1,1 +1,50 @@
-<p>home works!</p>
+@if(orders && orders.length > 0) {
+    <div ngbAccordion >
+        @for (order of orders; track order._id) {
+            <div ngbAccordionItem >
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton>
+                        <p class="mb-0"><strong>Order:</strong>&nbsp; {{order._id}}</p>
+                    </button>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <strong>Status:</strong>&nbsp; {{ order.stage }}
+                                </div>
+                            </div>
+                            @for (item of order.items; track $index) {
+                                <div class="row border-bottom">
+                                    <div class="col-6">
+                                        {{item.name}}
+                                    </div>
+                                    <div class="col-6">
+                                        @for (itemExtras of item.extras; track $index) {
+                                            <div class="col-6">
+                                                {{itemExtras.name}}
+                                            </div>
+                                            <div class="col-6">
+                                                @for (extra of itemExtras.extras; track $index) {
+                                                    {{ extra.name }},
+                                                }
+                                            </div>              
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            <button class="btn btn-primary mt-2">Next stage</button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+} @else {
+    <div class="card">
+        <div class="card-body">
+            No orders currently
+        </div>
+    </div>
+}

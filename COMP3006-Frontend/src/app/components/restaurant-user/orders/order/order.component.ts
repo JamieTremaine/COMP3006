@@ -43,7 +43,6 @@ export class OrderComponent implements OnInit {
             lastValueFrom(this.getRestaurant(order.restaurant?._id as string)).then((result)=> {
                 this.order = order;
                 this.order.restaurant = result;
-                console.log(this.order)
             });
         } else {
             lastValueFrom(this.loadOrder()).then((result) => {

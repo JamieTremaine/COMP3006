@@ -1,4 +1,4 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
 let sockets: Map<string, string> = new Map();

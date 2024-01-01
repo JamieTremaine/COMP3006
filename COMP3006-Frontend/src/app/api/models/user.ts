@@ -8,6 +8,7 @@ export interface User {
 'postcode'?: string;
 '_id'?: string;
 }>;
+  restaurantId?: string;
   type?: string;
   username?: string;
 }

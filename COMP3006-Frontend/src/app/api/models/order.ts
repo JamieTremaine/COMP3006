@@ -43,6 +43,7 @@ export interface Order {
 'currentMenuId'?: string;
 '_id'?: string;
 };
+  stage?: string;
   total?: number;
   userId?: string;
 }

@@ -9,6 +9,7 @@ export interface CreateUser {
 '_id'?: string;
 }>;
   password?: string;
+  restaurantId?: string;
   type?: string;
   username?: string;
 }

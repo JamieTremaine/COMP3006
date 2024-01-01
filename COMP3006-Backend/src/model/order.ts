@@ -13,6 +13,7 @@ export interface IOrder {
     specialInstructions: string;
     active: boolean;
     address: IAddress;
+    stage: string;
 }
 
 
@@ -23,7 +24,8 @@ const orderSchema = new Schema<IOrder>({
     total: Number,
     orderTime: Date,
     active: Boolean,
-    address: addressSchema
+    address: addressSchema,
+    stage: String
 });
 
 export const OrderModel = model<IOrder>('orders', orderSchema);
