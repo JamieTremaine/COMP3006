@@ -38,7 +38,7 @@ export class OrderService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  orderUserIdRecentGet$Response(params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
+  orderUserIdRecentGet$Response(params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Order>>> {
     return orderUserIdRecentGet(this.http, this.rootUrl, params, context);
   }
 
@@ -50,9 +50,9 @@ export class OrderService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  orderUserIdRecentGet(params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<Order> {
+  orderUserIdRecentGet(params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<Array<Order>> {
     return this.orderUserIdRecentGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Order>): Order => r.body)
+      map((r: StrictHttpResponse<Array<Order>>): Array<Order> => r.body)
     );
   }
 

@@ -25,7 +25,9 @@ const path = '/order'
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/order'
+ *                          type: "array"
+ *                          items:
+ *                              $ref: '#/components/schemas/order'
  *          '500':
  *              description: other server error
  */

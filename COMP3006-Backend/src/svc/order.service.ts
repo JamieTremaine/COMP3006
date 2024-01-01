@@ -35,7 +35,6 @@ export class OrderService {
         return await OrderModel.find({'restaurant._id': new ObjectId(restaurantId), active: true})
     }
 
-
     public async addOrder(order: IOrder): Promise<IOrder> {
 
         return this.verifyOrder(order).then(async (result)=> {
@@ -44,6 +43,12 @@ export class OrderService {
             }
             order.active = true;
             order.stage = 'recieved';
+            let total = 0;
+            order.items?.forEach((item) => {
+                total += item.price
+            })
+
+            order.total = total;
 
             const createdOrder = await OrderModel.create(order);
 
@@ -54,10 +59,6 @@ export class OrderService {
             }
 
             return createdOrder;
-         
-
-
-
         })
     }
 

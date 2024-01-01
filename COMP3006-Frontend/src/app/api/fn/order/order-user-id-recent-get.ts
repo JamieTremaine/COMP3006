@@ -12,7 +12,7 @@ export interface OrderUserIdRecentGet$Params {
   userId: any;
 }
 
-export function orderUserIdRecentGet(http: HttpClient, rootUrl: string, params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Order>> {
+export function orderUserIdRecentGet(http: HttpClient, rootUrl: string, params: OrderUserIdRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Order>>> {
   const rb = new RequestBuilder(rootUrl, orderUserIdRecentGet.PATH, 'get');
   if (params) {
     rb.path('userId', params.userId, {});
@@ -23,7 +23,7 @@ export function orderUserIdRecentGet(http: HttpClient, rootUrl: string, params: 
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Order>;
+      return r as StrictHttpResponse<Array<Order>>;
     })
   );
 }
