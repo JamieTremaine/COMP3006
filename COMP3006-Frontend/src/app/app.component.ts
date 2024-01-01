@@ -6,6 +6,7 @@ import { SearchbarComponent } from './components/shared/searchbar/searchbar.comp
 import { ToastComponent } from './components/shared/toast/toast.component';
 import { PersistanceService } from './svc/persistance.service';
 import { NgUserService } from './svc/ng-user.service';
+import { WebsocketService } from './svc/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { NgUserService } from './svc/ng-user.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-    constructor(private persistanceService: PersistanceService, private ngUserService: NgUserService) {}
+    constructor(private persistanceService: PersistanceService, private ngUserService: NgUserService, private websocketService: WebsocketService) {}
 
     ngOnInit(): void {
         const user = this.persistanceService.getUser();

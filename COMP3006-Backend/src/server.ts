@@ -6,13 +6,28 @@ import swaggerUi from "swagger-ui-express";
 import { getSpec } from './spec'
 import bodyParser from "body-parser";
 import cors from "cors";
+import { createServer } from "node:http";
+import { Server } from "socket.io";
+import websocket from './controllers/websocket.controller';
 
 dotenv.config();
 
-const app: Express = express();
 const port = process.env.PORT || 3000;
 const dbUrl = process.env.DB_URL || "127.0.0.1";
 const dbPort = process.env.DB_PORT || 27017 
+
+const allowedOrigins = ['http://localhost:4200', 'http://localhost:80'];
+
+const corsOptions: cors.CorsOptions = {
+  origin: allowedOrigins
+};
+
+const app: Express = express();
+const server = createServer(app);
+const io = new Server(server, {
+    cors: { origin: allowedOrigins }
+});
+
 
 const swaggerDocs = getSpec();
 
@@ -26,17 +41,14 @@ if (process.env.BUILD === 'DEV') {
 
 connect(`mongodb://${dbUrl}:${dbPort}/restaurant-ordering-system`);
 
-const allowedOrigins = ['http://localhost:4200', 'http://localhost:80'];
-
-const corsOptions: cors.CorsOptions = {
-  origin: allowedOrigins
-};
+app.set('socketio', io);
 
 app.use(bodyParser.json())
 app.use(cors(corsOptions))
 app.use('/api/v1/', routes);
 
+websocket(io);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });

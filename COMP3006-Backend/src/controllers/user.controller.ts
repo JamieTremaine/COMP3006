@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { IUserLogin } from "../model/UserLogin";
 import { UserService } from "../svc/user.service";
-import { IUser } from "../model/user";
 import { ICreateUser } from "../model/createUser";
 
 export const userRoutes = Router();
