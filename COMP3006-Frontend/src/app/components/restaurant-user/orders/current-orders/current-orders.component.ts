@@ -45,7 +45,6 @@ export class CurrentOrdersComponent implements OnInit {
     }
 
     cancelOrder(restaurantId?: string) {
-        console.log(this.orders)
         if(restaurantId) {
             this.ngOrderService.cancelOrder(restaurantId);
             this.orders = this.ngOrderService.getAllOrders();

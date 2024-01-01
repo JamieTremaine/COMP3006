@@ -5,6 +5,7 @@ import { UserModel } from "./user";
 import { CreateUserModel } from "./createUser";
 import m2s from "mongoose-to-swagger"
 import { UserLoginModel } from "./UserLogin";
+import { StatusModel } from "./status";
 
 export default {
     user: m2s(UserModel),
@@ -12,5 +13,6 @@ export default {
     order: m2s(OrderModel),
     menu: m2s(MenuModel),
     userlogin: m2s(UserLoginModel),
-    createUser: m2s(CreateUserModel)
+    createUser: m2s(CreateUserModel),
+    status: m2s(StatusModel)
 };

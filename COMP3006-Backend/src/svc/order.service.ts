@@ -2,8 +2,26 @@ import { ObjectId } from "mongodb";
 import { InvalidArgumentError } from "../model/Error/InvalidArgumentError";
 import { IMenu, MenuModel } from "../model/menu";
 import { IOrder, OrderModel } from "../model/order";
+import { UserService } from "./user.service";
+import { WebsocketService } from "./websocket.service";
+import { UserModel } from "../model/user";
 
 export class OrderService {
+
+    private static orderService: OrderService;
+
+    private userService = UserService.getService();
+    private websocketService = WebsocketService.getService();
+
+    private constructor() {}
+
+    public static getService(): OrderService {
+        if(OrderService.orderService === undefined) {
+            OrderService.orderService = new OrderService();
+        }
+
+        return OrderService.orderService;
+    }
 
     public async getUserOrders(userId: string): Promise<Array<IOrder>> {
         return await OrderModel.find({userId: userId}).limit(50).exec();
@@ -26,7 +44,20 @@ export class OrderService {
             }
             order.active = true;
             order.stage = 'recieved';
-            return await OrderModel.create(order);
+
+            const createdOrder = await OrderModel.create(order);
+
+            const restaurantUser = await UserModel.findOne({restaurantId: createdOrder.restaurant._id });
+            
+            if (restaurantUser) {
+                this.websocketService.sendOrder(createdOrder, restaurantUser._id)
+            }
+
+            return createdOrder;
+         
+
+
+
         })
     }
 

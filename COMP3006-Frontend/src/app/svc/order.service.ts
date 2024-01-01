@@ -12,6 +12,7 @@ import { OrderService } from '../api/services';
 export class NgOrderService implements OnDestroy {
 
     public activeOrders = new Subject<number>();
+    public newOrder = new Subject<Order>()
     private currentOrders = new Map<string, Order>();
 
     private destroy$ = new Subject<void>();
@@ -89,5 +90,9 @@ export class NgOrderService implements OnDestroy {
 
     sendOrder(order: Order): Observable<Order> {
         return this.orderService.orderPost({body: order});
+    }
+
+    addNewOrder(order: Order) {
+        this.newOrder.next(order);
     }
 }

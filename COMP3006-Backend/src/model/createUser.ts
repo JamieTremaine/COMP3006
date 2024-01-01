@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 import { IAddress, addressSchema } from "./address";
 
 export interface ICreateUser {

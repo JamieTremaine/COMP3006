@@ -5,7 +5,7 @@ import { IOrder } from "../model/order";
 
 export const orderRoutes = Router();
 
-const orderService = new OrderService();
+const orderService = OrderService.getService();
 
 const path = '/order'
 

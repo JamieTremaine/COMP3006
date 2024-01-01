@@ -5,7 +5,7 @@ import { ICreateUser } from "../model/createUser";
 
 export const userRoutes = Router();
 
-const userService = new UserService();
+const userService = UserService.getService();
 
 const path = '/user'
 

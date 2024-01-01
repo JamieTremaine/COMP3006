@@ -1,18 +1,31 @@
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { WebsocketService } from "../svc/websocket.service";
+import { IStatus } from "../model/status";
 
-let sockets: Map<string, string> = new Map();
+const websocketService = WebsocketService.getService();
 
 export default (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
 
+    websocketService.setIo(io);
+
     io.on('connection', (socket) => {
         socket.on('disconnect', () => {
-           sockets.delete(socket.id);
+            websocketService.removeConnection(socket.id);  
         });
     
         socket.on('connection-details', (userId) => {
-            sockets.set(userId, socket.id);
+            websocketService.addConnection({socketId: socket.id, userId: userId});
         });
+
+        socket.on('status-change', (status: IStatus) => {
+            websocketService.updateStatus(status).then((connectionsToInform) => {
+                connectionsToInform.forEach((connection)=> {
+                    io.to(connection.socketId).emit('status-change', status.status);
+                });
+            })
+        })
     });
+
 }
 

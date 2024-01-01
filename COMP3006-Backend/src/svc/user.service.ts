@@ -5,8 +5,21 @@ import { ICreateUser } from "../model/createUser";
 
 export class UserService {
 
+    private static userService?: UserService;
+
     private iterations = 1000;
     private keylen = 64;
+
+    private constructor() {}
+
+
+    public static getService(): UserService {
+        if(UserService.userService === undefined) {
+            UserService.userService = new UserService();
+        }
+
+        return UserService.userService;
+    }
 
     public async login(username: string, password: string): Promise<boolean> {
         let login: boolean = false;
