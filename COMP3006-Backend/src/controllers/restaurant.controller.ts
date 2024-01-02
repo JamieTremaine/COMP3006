@@ -4,7 +4,7 @@ import { IRestaurant } from "../model/restaurant";
 
 export const restaurantRoutes = Router();
 
-const restaurantService = RestaurantService.getService();
+const restaurantService = new RestaurantService();
 
 const path = '/restaurant'
 

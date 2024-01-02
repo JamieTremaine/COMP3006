@@ -6,24 +6,10 @@ import { UserService } from "./user.service";
 import { WebsocketService } from "./websocket.service";
 import { UserModel } from "../model/user";
 import { IStatus } from "../model/status";
-import { ConnectionModel, IConnection } from "../model/connections";
 
 export class OrderService {
 
-    private static orderService: OrderService;
-
-    private userService = UserService.getService();
-    private websocketService = WebsocketService.getService();
-
-    private constructor() {}
-
-    public static getService(): OrderService {
-        if(OrderService.orderService === undefined) {
-            OrderService.orderService = new OrderService();
-        }
-
-        return OrderService.orderService;
-    }
+    private websocketService = new WebsocketService();
 
     public async getUserOrders(userId: string): Promise<Array<IOrder>> {
         return await OrderModel.find({userId: userId}).limit(50).exec();
@@ -96,14 +82,4 @@ export class OrderService {
 
         return orderSize === matches?.length ? true : false;
     }
-
-    public async updateOrderStatus(status: IStatus): Promise<IOrder | null> {
-
-        if(status.status === 'delivered') {
-            return await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status, active: false });
-        } else {
-            return await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status });
-        }
-    }
-
 }

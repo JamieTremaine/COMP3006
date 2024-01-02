@@ -3,7 +3,7 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { WebsocketService } from "../svc/websocket.service";
 import { IStatus } from "../model/status";
 
-const websocketService = WebsocketService.getService();
+const websocketService = new WebsocketService();
 
 export default (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
 

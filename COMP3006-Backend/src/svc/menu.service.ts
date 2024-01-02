@@ -2,19 +2,6 @@ import { IMenu, MenuModel } from "../model/menu";
 
 
 export class MenuService {
-
-    private static menuService?: MenuService;
-
-    private constructor(){}
-
-
-    public static getService(): MenuService {
-        if(MenuService.menuService === undefined) {
-            MenuService.menuService = new MenuService()
-        }
-        return MenuService.menuService;
-    }
-
     public async getMenu(menuId: string): Promise<IMenu | null> {
         return await MenuModel.findById(menuId);
     }

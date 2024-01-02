@@ -5,7 +5,7 @@ import { ICreateUser } from "../model/createUser";
 
 export const userRoutes = Router();
 
-const userService = UserService.getService();
+const userService = new UserService();
 
 const path = '/user'
 
@@ -81,9 +81,9 @@ userRoutes.post((`${path}`), (req, res) => {
 
     userService.createUser(user).then((result) => {
         if (result.success) {
-            res.send('user created');
+            res.send({message: 'user created'});
         } else {
-            res.status(404).send(result.denialReason);
+            res.status(404).send(result);
         }
     });
 });

@@ -6,8 +6,8 @@ import { RestaurantService } from '../svc/restaurant.service';
 // eslint-disable-next-line new-cap
 export const menuRoutes = Router();
 
-const menuService = MenuService.getService();
-const restaurantService = RestaurantService.getService();
+const menuService = new MenuService();
+const restaurantService = new RestaurantService();
 
 const path = '/menu';
 

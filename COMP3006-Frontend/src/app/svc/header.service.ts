@@ -15,7 +15,7 @@ export class HeaderService implements OnDestroy {
         this.routerSub = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
 
-                if(event.url === '/' || event.url === '/login') {
+                if(event.url === '/' || event.url === '/login' || event.url === '/create-account') {
                     this._showBack = false;
                 } else {
                     this._showBack = true;

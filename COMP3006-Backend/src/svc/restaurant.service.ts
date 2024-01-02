@@ -1,19 +1,6 @@
 import {  IRestaurant, RestaurantModel,  } from "../model/restaurant";
 
 export class RestaurantService {
-
-    private static restaurantService?: RestaurantService
-
-    private constructor() {}
-
-    public static getService(): RestaurantService {
-        if(RestaurantService.restaurantService === undefined) {
-            RestaurantService.restaurantService = new RestaurantService();
-        }
-
-        return RestaurantService.restaurantService;
-    }
-
     public async getRestaurant(restaurantId: string): Promise<IRestaurant | null> {
         try {
             const result = await RestaurantModel.findById(restaurantId);
