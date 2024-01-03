@@ -4,7 +4,7 @@ export interface CreateUser {
   '_id'?: string;
   addresses?: Array<{
 'addresslineOne'?: string;
-'addressLineTwo'?: string;
+'addresslineTwo'?: string;
 'postcode'?: string;
 '_id'?: string;
 }>;

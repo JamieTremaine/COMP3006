@@ -14,6 +14,8 @@ import { userLoginPost } from '../fn/user/user-login-post';
 import { UserLoginPost$Params } from '../fn/user/user-login-post';
 import { userPost } from '../fn/user/user-post';
 import { UserPost$Params } from '../fn/user/user-post';
+import { userUserIdAddressesPost } from '../fn/user/user-user-id-addresses-post';
+import { UserUserIdAddressesPost$Params } from '../fn/user/user-user-id-addresses-post';
 import { userUsernameGet } from '../fn/user/user-username-get';
 import { UserUsernameGet$Params } from '../fn/user/user-username-get';
 
@@ -106,6 +108,35 @@ export class UserService extends BaseService {
    */
   userUsernameGet(params: UserUsernameGet$Params, context?: HttpContext): Observable<User> {
     return this.userUsernameGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<User>): User => r.body)
+    );
+  }
+
+  /** Path part for operation `userUserIdAddressesPost()` */
+  static readonly UserUserIdAddressesPostPath = '/user/{userId}/addresses';
+
+  /**
+   * Update user addresses
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userUserIdAddressesPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userUserIdAddressesPost$Response(params: UserUserIdAddressesPost$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
+    return userUserIdAddressesPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Update user addresses
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userUserIdAddressesPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userUserIdAddressesPost(params: UserUserIdAddressesPost$Params, context?: HttpContext): Observable<User> {
+    return this.userUserIdAddressesPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<User>): User => r.body)
     );
   }

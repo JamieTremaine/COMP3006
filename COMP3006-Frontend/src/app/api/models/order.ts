@@ -5,7 +5,7 @@ export interface Order {
   active?: boolean;
   address?: {
 'addresslineOne'?: string;
-'addressLineTwo'?: string;
+'addresslineTwo'?: string;
 'postcode'?: string;
 '_id'?: string;
 };

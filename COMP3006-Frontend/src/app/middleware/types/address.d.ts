@@ -1,6 +1,6 @@
 type Address = {
     addresslineOne?: string;
-    addressLineTwo?: string;
+    addresslineTwo?: string;
     postcode?: string;
     _id?: string;
 
