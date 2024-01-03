@@ -50,22 +50,6 @@ export class NgOrderService implements OnDestroy {
         this.persistanceService.setOrder(this.getOrder(resturantId) as Order);
     }
 
-    removeFromOrder(resturantId: string, item: MenuItem) {
-        if (this.currentOrders.has(resturantId)) {
-            let order = this.currentOrders.get(resturantId) as Order;
-
-            const idx = order.items?.indexOf(item);
-            order.items = order.items?.slice(idx, 1);
-
-            if (order.items?.length === 0) {
-                this.currentOrders.delete(resturantId);
-                this.activeOrders.next(this.currentOrders.size);
-            } else {
-                this.currentOrders.set(resturantId, order);
-            }
-        }
-    }
-
     getAllOrders(): Array<Order> {
         return Array.from(this.currentOrders.values())
     }

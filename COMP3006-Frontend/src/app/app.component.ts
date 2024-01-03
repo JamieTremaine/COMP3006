@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { SearchbarComponent } from './components/shared/searchbar/searchbar.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
 import { PersistanceService } from './svc/persistance.service';
 import { NgUserService } from './svc/ng-user.service';
@@ -11,7 +10,7 @@ import { WebsocketService } from './svc/websocket.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, SearchbarComponent, ToastComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -52,7 +52,6 @@ export class WebsocketService implements OnDestroy {
 
         this.socket.on('status-change', (message)=> {
             this.statusChange.next(message);
-            console.log('status change');
         })
     }
 

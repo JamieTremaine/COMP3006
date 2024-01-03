@@ -5,13 +5,12 @@ import { RestaurantService } from '../../../api/services';
 import { HeaderService } from '../../../svc/header.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import { SearchbarComponent } from '../../shared/searchbar/searchbar.component';
 import { PageComponent } from '../../utils/page/page.component';
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [RouterLink, SearchbarComponent, HttpClientModule],
+  imports: [RouterLink, HttpClientModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

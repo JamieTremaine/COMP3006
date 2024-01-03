@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { IUserLogin, UserLoginModel } from "../model/UserLogin";
 import { IUser, UserModel } from "../model/user";
 import { ICreateUser } from "../model/createUser";
+import { IAddress } from "../model/address";
 
 export class UserService {
 
@@ -34,7 +35,7 @@ export class UserService {
         const existingUser = await UserLoginModel.findOne({userName: userToCreate.username});
 
         if(existingUser) {
-            return { success: false, denialReason: 'user already exists' };
+            return { success: false, denialReason: 'username taken' };
         }
 
         const salt = crypto.randomBytes(16).toString('hex');
@@ -63,5 +64,9 @@ export class UserService {
 
     public async getUserByUsername(username: string): Promise<IUser | null> {
         return await UserModel.findOne({username: username})
+    }
+
+    public async updateAddresses(userId: string, addresses: Array<IAddress>): Promise<IUser | null> {
+        return await UserModel.findByIdAndUpdate(userId, {addresses: addresses})
     }
 }

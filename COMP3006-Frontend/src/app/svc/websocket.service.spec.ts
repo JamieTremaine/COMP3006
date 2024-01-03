@@ -1,12 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { WebsocketService } from './websocket.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 describe('WebsocketService', () => {
   let service: WebsocketService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
+    });
     service = TestBed.inject(WebsocketService);
   });
 

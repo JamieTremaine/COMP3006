@@ -2,6 +2,7 @@ import { Router } from "express";
 import { IUserLogin } from "../model/UserLogin";
 import { UserService } from "../svc/user.service";
 import { ICreateUser } from "../model/createUser";
+import { IAddress } from "../model/address";
 
 export const userRoutes = Router();
 
@@ -117,5 +118,46 @@ userRoutes.get(`${path}/:username`, (req, res) => {
             res.send(result);
     })
     .catch(()=> res.status(500).send());
+});
+
+
+/**
+ * @openapi
+ * /user/{userId}/addresses:
+ *  post:
+ *      description: Update user addresses
+ *      parameters:
+ *      -   in: path
+ *          name: userId
+ *      tags:
+ *      -   user
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: "array"
+ *                      items:
+ *                          $ref: '#/components/schemas/address'
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/user'
+ *          '500':
+ *              description: other server error
+ */
+userRoutes.post((`${path}/:userId/addresses`), (req, res) => {
+    const addresses: Array<IAddress> = req.body;
+
+    userService.updateAddresses(req.params.userId, addresses).then((result)=> {
+        if(result !== null) {
+            res.send(result);
+        } else {
+            res.status(500).send({message: 'could not update addresses'});
+        }
+    })
 });
 

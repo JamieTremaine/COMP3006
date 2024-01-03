@@ -11,3 +11,5 @@ export const addressSchema = new Schema<IAddress>({
     addresslineTwo: String,
     postcode: String
 });
+
+export const AddressModel = { schema: addressSchema };

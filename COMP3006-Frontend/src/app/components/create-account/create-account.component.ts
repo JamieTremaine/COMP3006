@@ -51,7 +51,7 @@ export class CreateAccountComponent implements OnInit {
     crateAddressForm(){
         return new FormGroup({
             addresslineOne: new FormControl('', Validators.required),
-            addresslineTwo: new FormControl('', Validators.required),
+            addresslineTwo: new FormControl(''),
             postcode:  new FormControl('', Validators.required)
         });
     }
@@ -59,7 +59,6 @@ export class CreateAccountComponent implements OnInit {
     addAddress() {
         this.addingAddress = false;
         const address = this.addressForm.value;
-        console.log(address)
         this.addresses.push(address);
         
     }
@@ -70,7 +69,6 @@ export class CreateAccountComponent implements OnInit {
     }
 
     createAccount() {
-        console.log(this.createAccountForm.valid);
         if (!this.createAccountForm.valid) {
             this.toasterService.show('Not all fields have been set', Severity.danger, 5000);
             return;
@@ -95,11 +93,9 @@ export class CreateAccountComponent implements OnInit {
         }
 
         lastValueFrom(this.userService.userPost({body: user})).then(result => {
-            console.log('success')
             this.toasterService.show('Account created', Severity.success, 5000);
             this.router.navigate(['/login']);          
         }).catch((error) => {
-            console.log(error)
             this.toasterService.show('Could not create account: ' + error.error.denialReason, Severity.danger, 5000);
         });
     }
