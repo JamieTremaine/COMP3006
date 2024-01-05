@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 
 export interface IAddress {
     addresslineOne: string;
-    addresslineTwo: string;
+    addresslineTwo?: string;
     postcode: string;
 }
 

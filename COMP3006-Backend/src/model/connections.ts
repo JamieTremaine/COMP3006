@@ -5,9 +5,9 @@ export interface IConnection {
     userId: string;
 }
 
-const ConnectionSchema = new Schema<IConnection>({
+const connectionSchema = new Schema<IConnection>({
     socketId: String,
     userId: String
 });
 
-export const ConnectionModel = model<IConnection>('connections', ConnectionSchema);
+export const ConnectionModel = model<IConnection>('connections', connectionSchema);

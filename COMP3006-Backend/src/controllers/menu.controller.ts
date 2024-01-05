@@ -36,8 +36,9 @@ const path = '/menu';
 menuRoutes.get(`${path}/:menuId`, (req, res) => {
     menuService.getMenu(req.params.menuId).then((result) => {
         result ?
-            res.status(404).send(`menu with id ${req.params.menuId} could not be found`):
-            res.send(result);
+            res.send(result) :
+            res.status(404).send(`menu with id ${req.params.menuId} could not be found`);
+
     })
     .catch(()=> res.status(500).send());;
 });
@@ -87,9 +88,9 @@ menuRoutes.get(`${path}/:restaurantId/current`, (req, res) => {
 
 menuRoutes.get(`${path}/:restaurantId/all`, (req, res) => {
     menuService.getrestaurantMenus(req.params.restaurantId).then((result) => {
-        result ?
-        res.status(404).send(`menus from ${req.params.restaurantId} could not be found`):
-        res.send(result);
+        result.length > 0 ?
+        res.send(result) :
+        res.status(404).send(`menus from ${req.params.restaurantId} could not be found`);
     })
 })
 

@@ -4,7 +4,7 @@ export interface IUserLogin {
     _id?: string
     username: string;
     password: string;
-    salt: string;
+    salt?: string;
 }
 
 export const userLoginSchema = new Schema<IUserLogin>({

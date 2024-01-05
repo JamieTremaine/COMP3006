@@ -59,7 +59,7 @@ orderRoutes.get(`${path}/:userId/recent`, (req, res)=>{
  *          '500':
  *              description: other server error
  */
-orderRoutes.get(`${path}/:orderId/`, (req, res)=>{
+orderRoutes.get(`${path}/:orderId`, (req, res)=>{
 
     orderService.getOrder(req.params.orderId).then((result) => {
         result !== null ?
@@ -73,7 +73,7 @@ orderRoutes.get(`${path}/:orderId/`, (req, res)=>{
  * @openapi
  * /order/{restaurantId}/active:
  *  get:
- *      description: Use to get all active orders for a reasturant
+ *      description: Use to get all active orders for a restaurant
  *      parameters:
  *      -   in: path
  *          name: restaurantId
@@ -94,7 +94,12 @@ orderRoutes.get(`${path}/:orderId/`, (req, res)=>{
 orderRoutes.get(`${path}/:restaurantId/active`, (req, res)=>{
 
     orderService.getActiveOrders(req.params.restaurantId).then((result) => {
-        res.send(result)
+        if(result !== null) {
+            res.send(result);
+        } else {
+            res.status(404).send();
+        }
+    
     })
     .catch(()=> res.status(500).send());
 })

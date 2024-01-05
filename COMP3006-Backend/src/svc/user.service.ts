@@ -27,7 +27,6 @@ export class UserService {
     }
 
     public async createUser(userToCreate: ICreateUser): Promise<{success: boolean, denialReason?: string}> {
-
         if (userToCreate.password.length < 5) {
             return { success: false, denialReason: 'password too short' };
         }

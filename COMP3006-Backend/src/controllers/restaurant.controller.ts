@@ -92,8 +92,8 @@ restaurantRoutes.put(`${path}/:restaurantId`, (req, res) =>{
 
     restaurantService.setResturant(menu, req.params.restaurantId).then((result)=>{
         result ?
-            res.status(404).send(`restaurant with id ${req.params.restaurantId} could not be found`) :
-            res.send(result);
+            res.send(result):
+            res.status(404).send(`restaurant with id ${req.params.restaurantId} could not be found`);
     })
     .catch(()=> res.status(500).send());
 })

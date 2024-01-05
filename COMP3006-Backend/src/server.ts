@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { routes } from './controllers/index';
 import { connect } from "mongoose";
 import swaggerUi from "swagger-ui-express";
-import { getSpec } from './spec'
+import { getSpec } from './api-spec'
 import bodyParser from "body-parser";
 import cors from "cors";
 import { createServer } from "node:http";
@@ -22,7 +22,7 @@ const corsOptions: cors.CorsOptions = {
   origin: allowedOrigins
 };
 
-const app: Express = express();
+export const app: Express = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: { origin: allowedOrigins }
@@ -39,9 +39,9 @@ if (process.env.BUILD === 'DEV') {
     });
 }
 
-connect(`mongodb://${dbUrl}:${dbPort}/restaurant-ordering-system`);
-
-app.set('socketio', io);
+if (process.env.NODE_ENV !== 'test') {
+    connect(`mongodb://${dbUrl}:${dbPort}/restaurant-ordering-system`);
+}
 
 app.use(bodyParser.json())
 app.use(cors(corsOptions))
@@ -49,6 +49,8 @@ app.use('/api/v1/', routes);
 
 websocket(io);
 
-server.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    server.listen(port, () => {
+        console.log(`[server]: Server is running at http://localhost:${port}`);
+    });
+}

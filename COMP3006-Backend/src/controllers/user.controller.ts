@@ -43,12 +43,10 @@ userRoutes.post((`${path}/login`), (req, res) => {
             userService.getUserByUsername(userLogin.username).then((user)=>{
                 res.send(user);
             })
-
         } else {
             res.status(400).send('incorrect username or password')
         }
     });
-
 });
 
 
@@ -82,9 +80,9 @@ userRoutes.post((`${path}`), (req, res) => {
 
     userService.createUser(user).then((result) => {
         if (result.success) {
-            res.send({message: 'user created'});
+            res.status(201).send({ message: 'user created' });
         } else {
-            res.status(404).send(result);
+            res.status(400).send(result);
         }
     });
 });

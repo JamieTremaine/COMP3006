@@ -3,7 +3,6 @@ import { IStatus } from "../model/status";
 import { IOrder, OrderModel } from "../model/order";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { Server } from "socket.io";
-import { OrderService } from "./order.service";
 
 export class WebsocketService {
 

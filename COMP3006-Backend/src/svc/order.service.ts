@@ -2,10 +2,8 @@ import { ObjectId } from "mongodb";
 import { InvalidArgumentError } from "../model/Error/InvalidArgumentError";
 import { IMenu, MenuModel } from "../model/menu";
 import { IOrder, OrderModel } from "../model/order";
-import { UserService } from "./user.service";
 import { WebsocketService } from "./websocket.service";
 import { UserModel } from "../model/user";
-import { IStatus } from "../model/status";
 
 export class OrderService {
 
