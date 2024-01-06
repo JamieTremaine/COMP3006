@@ -1,11 +1,11 @@
-import { menuRoutes } from "../../../src/controllers/menu.controller";
-import { IMenu } from "../../../src/model/menu";
-import { app } from "../../../src/server";
-import { MenuService } from "../../../src/svc/menu.service";
+import supertest from "supertest";
+import { menuRoutes } from "../../../controllers/menu.controller";
+import { IMenu } from "../../../model/menu";
+import { IRestaurant } from "../../../model/restaurant";
+import { app } from "../../../server";
+import { MenuService } from "../../../svc/menu.service";
+import { RestaurantService } from "../../../svc/restaurant.service";
 
-import supertest from 'supertest'
-import { RestaurantService } from "../../../src/svc/restaurant.service";
-import { IRestaurant } from "../../../src/model/restaurant";
 
 describe('menu controller', () => {
 

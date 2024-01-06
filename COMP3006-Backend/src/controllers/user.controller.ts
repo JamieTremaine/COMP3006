@@ -49,7 +49,6 @@ userRoutes.post((`${path}/login`), (req, res) => {
     });
 });
 
-
 /**
  * @openapi
  * /user:

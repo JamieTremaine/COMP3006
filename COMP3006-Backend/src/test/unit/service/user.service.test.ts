@@ -1,8 +1,9 @@
-import { IUserLogin, UserLoginModel } from "../../../src/model/UserLogin";
-import { IAddress } from "../../../src/model/address";
-import { ICreateUser } from "../../../src/model/createUser";
-import { IUser, UserModel } from "../../../src/model/user";
-import { UserService } from "../../../src/svc/user.service";
+import { IUserLogin, UserLoginModel } from "../../../model/UserLogin";
+import { IAddress } from "../../../model/address";
+import { ICreateUser } from "../../../model/createUser";
+import { IUser, UserModel } from "../../../model/user";
+import { UserService } from "../../../svc/user.service";
+
 
 describe('user service', () => {
 

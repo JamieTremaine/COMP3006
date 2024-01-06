@@ -89,8 +89,8 @@ menuRoutes.get(`${path}/:restaurantId/current`, (req, res) => {
 menuRoutes.get(`${path}/:restaurantId/all`, (req, res) => {
     menuService.getrestaurantMenus(req.params.restaurantId).then((result) => {
         result.length > 0 ?
-        res.send(result) :
-        res.status(404).send(`menus from ${req.params.restaurantId} could not be found`);
+            res.send(result) :
+            res.status(404).send(`menus from ${req.params.restaurantId} could not be found`);
     })
 })
 
@@ -128,9 +128,12 @@ menuRoutes.post(`${path}`, (req, res) => {
 
 /**
  * @openapi
- * /menu/{menuid}:
+ * /menu/{menuId}:
  *  put:
  *      description: update an existing menu
+ *      parameters:
+ *      -   in: path
+ *          name: menuId
  *      tags:
  *      -   menu
  *      requestBody:
@@ -152,15 +155,16 @@ menuRoutes.put(`${path}/:menuId`, (req, res) => {
 
     menuService.setMenu(menu, req.params.menuId).then((result )=>{
         result ?
-            res.status(404).send(`menu with id ${req.params.menuId} could not be found`) :
-            res.status(204).send();
+            res.status(204).send() :
+            res.status(404).send(`menu with id ${req.params.menuId} could not be found`);
+
     })
     .catch(()=> res.status(500).send());
 });
 
 /**
  * @openapi
- * /menu/{menuid}:
+ * /menu/{menuId}:
  *  delete:
  *      description: delete an existing menu
  *      parameters:

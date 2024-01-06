@@ -13,7 +13,7 @@ const path = '/order'
  * @openapi
  * /order/{userId}/recent:
  *  get:
- *      description: Use to get a singular order by id
+ *      description: Use to get all recent orders of a user
  *      parameters:
  *      -   in: path
  *          name: userId
@@ -155,7 +155,7 @@ orderRoutes.post(path, (req, res) => {
  *      tags:
  *      -   order
  *      responses:
- *          '200':
+ *          '204':
  *              description: order was successfully deleted
  *          '404':
  *              description: order not found
@@ -165,7 +165,7 @@ orderRoutes.post(path, (req, res) => {
 orderRoutes.delete(`${path}/:orderId`, (req, res) =>{
     orderService.deleteOrder(req.params.orderId).then((result)=>{
         result ?
-            res.status(200).send() :
+            res.status(204).send() :
             res.status(404).send(`Could not delete menu with id ${req.params.orderId}`);
     })
     .catch(()=> res.status(500).send());

@@ -3,8 +3,9 @@ import { type AddressInfo } from "node:net";
 import { io as ioc, type Socket as ClientSocket } from "socket.io-client";
 import { Server, type Socket as ServerSocket } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import websocketController from "../../../src/controllers/websocket.controller";
-import { WebsocketService } from "../../../src/svc/websocket.service";
+import websocketController from "../../../controllers/websocket.controller";
+import { WebsocketService } from "../../../svc/websocket.service";
+
 
 describe('websocket controller', ()=> {
     let io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
@@ -30,14 +31,6 @@ describe('websocket controller', ()=> {
     afterAll(() => {
         io.close();
         clientSocket.disconnect();
-    });
-
-    it("should work", (done) => {
-    clientSocket.on("hello", (arg) => {
-        expect(arg).toBe("world");
-        done();
-    });
-    serverSocket.emit("hello", "world");
     });
 
     it('should manage connection-details', (done) => {

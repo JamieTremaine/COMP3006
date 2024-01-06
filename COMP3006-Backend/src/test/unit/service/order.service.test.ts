@@ -1,6 +1,7 @@
-import { IOrder, OrderModel } from "../../../src/model/order";
-import { UserModel } from "../../../src/model/user";
-import { OrderService } from "../../../src/svc/order.service";
+import { IOrder, OrderModel } from "../../../model/order";
+import { UserModel } from "../../../model/user";
+import { OrderService } from "../../../svc/order.service";
+
 
 describe('order service', () =>{
     const orderService = new OrderService();

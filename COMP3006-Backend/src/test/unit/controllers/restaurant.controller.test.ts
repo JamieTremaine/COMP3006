@@ -1,8 +1,9 @@
 import supertest from "supertest";
-import { restaurantRoutes } from "../../../src/controllers/restaurant.controller";
-import { IRestaurant } from "../../../src/model/restaurant";
-import { RestaurantService } from "../../../src/svc/restaurant.service";
-import { app } from "../../../src/server";
+import { restaurantRoutes } from "../../../controllers/restaurant.controller";
+import { IRestaurant } from "../../../model/restaurant";
+import { app } from "../../../server";
+import { RestaurantService } from "../../../svc/restaurant.service";
+
 
 
 describe('restaurant order', () => {
@@ -128,7 +129,7 @@ describe('restaurant order', () => {
                 return id === 'testRestaurantId' ? Promise.resolve(true) : Promise.resolve(false)
             });
 
-            const {body, statusCode} = await supertest(app).delete('/api/v1/restaurant/testRestaurantId').expect(200);
+            const {body, statusCode} = await supertest(app).delete('/api/v1/restaurant/testRestaurantId').expect(204);
 
             expect(getOrdersSpy).toHaveBeenCalledWith('testRestaurantId');
         });

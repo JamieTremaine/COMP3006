@@ -141,7 +141,7 @@ restaurantRoutes.post(`${path}`, (req, res) => {
  *      tags:
  *      -   restaurant
  *      responses:
- *          '200':
+ *          '204':
  *              description: restaurant was successfully deleted
  *          '404':
  *              description: restaurant not found
@@ -151,7 +151,7 @@ restaurantRoutes.post(`${path}`, (req, res) => {
 restaurantRoutes.delete(`${path}/:restaurantId`, (req, res) => {
     restaurantService.deleteResturant(req.params.restaurantId).then((result)=>{
         result ?
-            res.status(200).send() :
+            res.status(204).send() :
             res.status(404).send(`Could not delete menu with id ${req.params.restaurantId}`);
     })
     .catch(()=> res.status(500).send());

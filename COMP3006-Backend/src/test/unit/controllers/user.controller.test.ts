@@ -1,11 +1,12 @@
 import supertest from "supertest";
-import { userRoutes } from "../../../src/controllers/user.controller";
-import { IUserLogin } from "../../../src/model/UserLogin";
-import { UserService } from "../../../src/svc/user.service";
-import { app } from "../../../src/server";
-import { IUser } from "../../../src/model/user";
-import { ICreateUser } from "../../../src/model/createUser";
-import { IAddress } from "../../../src/model/address";
+import { userRoutes } from "../../../controllers/user.controller";
+import { IUserLogin } from "../../../model/UserLogin";
+import { IAddress } from "../../../model/address";
+import { ICreateUser } from "../../../model/createUser";
+import { IUser } from "../../../model/user";
+import { app } from "../../../server";
+import { UserService } from "../../../svc/user.service";
+
 
 describe('user controller', () => {
     afterAll(() => {

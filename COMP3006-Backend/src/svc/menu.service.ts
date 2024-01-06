@@ -24,6 +24,6 @@ export class MenuService {
 
     public async deleteMenu(menuId: string): Promise<boolean> {
         const result = await MenuModel.findByIdAndDelete(menuId);
-        return !!result.value
+        return !!result
     }
 }

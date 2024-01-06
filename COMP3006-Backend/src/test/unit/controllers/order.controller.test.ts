@@ -1,8 +1,8 @@
 import supertest from "supertest";
-import { orderRoutes } from "../../../src/controllers/order.controller";
-import { IOrder } from "../../../src/model/order";
-import { OrderService } from "../../../src/svc/order.service";
-import { app } from "../../../src/server";
+import { orderRoutes } from "../../../controllers/order.controller";
+import { IOrder } from "../../../model/order";
+import { app } from "../../../server";
+import { OrderService } from "../../../svc/order.service";
 
 describe('order controller', () => {
     afterAll(() => {
@@ -255,12 +255,12 @@ describe('order controller', () => {
     });
 
     describe('/order/:orderId', () => {
-        it('should return 200', async () => {
+        it('should return 204', async () => {
             const deleteOrdersSpy = jest.spyOn(OrderService.prototype, 'deleteOrder').mockImplementation((orderId) =>{ 
                 return orderId === 'orderIdDelete'? Promise.resolve(true): Promise.resolve(false);
             } )
 
-            const {body, statusCode} = await supertest(app).delete('/api/v1/order/orderIdDelete').expect(200);
+            const {body, statusCode} = await supertest(app).delete('/api/v1/order/orderIdDelete').expect(204);
 
             expect(deleteOrdersSpy).toHaveBeenCalledWith('orderIdDelete')
         });

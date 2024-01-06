@@ -1,5 +1,6 @@
-import { IMenu, MenuModel } from "../../../src/model/menu";
-import { MenuService } from "../../../src/svc/menu.service";
+import { IMenu, MenuModel } from "../../../model/menu";
+import { MenuService } from "../../../svc/menu.service";
+
 
 describe('menu service', () =>{
 
@@ -38,7 +39,7 @@ describe('menu service', () =>{
 
     it('should delete menu ', async () => {
         MenuModel.findByIdAndDelete = jest.fn().mockImplementation((id) => {
-            return id === 'deleteMenuId' ? Promise.resolve({value: '1'}) : Promise.resolve({value: null})
+            return id === 'deleteMenuId' ? Promise.resolve({_id: 'menuId'}) : Promise.resolve(null)
         });
 
         let result = await menuService.deleteMenu('deleteMenuId');

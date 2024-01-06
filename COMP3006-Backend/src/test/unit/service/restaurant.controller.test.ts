@@ -1,5 +1,6 @@
-import { IRestaurant, RestaurantModel } from "../../../src/model/restaurant";
-import { RestaurantService } from "../../../src/svc/restaurant.service";
+import { IRestaurant, RestaurantModel } from "../../../model/restaurant";
+import { RestaurantService } from "../../../svc/restaurant.service";
+
 
 describe('restaurant service', () => {
 

@@ -50,7 +50,7 @@ export class OrderService {
 
     public async deleteOrder(orderId: string): Promise<boolean> {
         const result = await OrderModel.findByIdAndDelete(orderId);
-        return !!result.value
+        return !!result
     }
 
     private async verifyOrder(order: IOrder): Promise<boolean> {

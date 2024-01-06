@@ -1,10 +1,10 @@
+import { createServer } from "http";
 import { Server } from "socket.io";
-import { WebsocketService } from "../../../src/svc/websocket.service";
-import { app } from "../../../src/server";
-import { createServer } from "node:http";
-import { ConnectionModel, IConnection } from "../../../src/model/connections";
-import { IStatus } from "../../../src/model/status";
-import { IOrder, OrderModel } from "../../../src/model/order";
+import { IConnection, ConnectionModel } from "../../../model/connections";
+import { IOrder, OrderModel } from "../../../model/order";
+import { IStatus } from "../../../model/status";
+import { WebsocketService } from "../../../svc/websocket.service";
+
 
 describe('websocket service', () => {
 
