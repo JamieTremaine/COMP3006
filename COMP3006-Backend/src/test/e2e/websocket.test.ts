@@ -27,15 +27,15 @@ describe('websocket e2e', () => {
         });
       });
 
-    afterAll(() => {
-        io.close();
-        clientSocket.disconnect();+
-
+    afterAll(() => {   
         jest.resetModules();
         jest.restoreAllMocks();
     });
 
     afterEach(() => {
+        io.close();
+        clientSocket.disconnect();
+
         jest.clearAllMocks();
     });
 
