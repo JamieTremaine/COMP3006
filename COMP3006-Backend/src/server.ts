@@ -13,8 +13,6 @@ import websocket from './controllers/websocket.controller';
 dotenv.config();
 
 const port = process.env.PORT || 3000;
-const dbUrl = process.env.DB_URL || "127.0.0.1";
-const dbPort = process.env.DB_PORT || 27017 
 
 const allowedOrigins = ['http://localhost:4200', 'http://localhost:80'];
 
@@ -40,7 +38,7 @@ if (process.env.BUILD === 'DEV') {
 }
 
 if (process.env.NODE_ENV !== 'test') {
-    connect(`mongodb://${dbUrl}:${dbPort}/restaurant-ordering-system`);
+    connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@comp3006.6tdogo9.mongodb.net/?retryWrites=true&w=majority`);
 }
 
 app.use(bodyParser.json())

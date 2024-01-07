@@ -5,10 +5,6 @@ Set-Location -Path ./COMP3006-Backend
 npm i
 npm run build
 
-Write-Host 'Building db...'
-Set-Location -Path ../COMP3006-db
-npm i
-
 Write-Host 'Building frontend...'
 Set-Location -Path ../COMP3006-Frontend
 npm i

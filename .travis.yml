@@ -10,3 +10,4 @@ before_install:
 
 script:
     - bash build-all.sh
+    - bash test-all.sh
