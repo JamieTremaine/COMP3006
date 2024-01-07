@@ -35,7 +35,6 @@ export interface Order {
 }>;
 '_id'?: string;
 }>;
-  orderTime?: string;
   restaurant?: {
 'description'?: string;
 'name'?: string;

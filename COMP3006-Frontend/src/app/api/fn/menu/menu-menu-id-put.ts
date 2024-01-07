@@ -6,15 +6,18 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { Menu } from '../../models/menu';
 
-export interface MenuMenuidDelete$Params {
+export interface MenuMenuIdPut$Params {
   menuId: any;
+      body: Menu
 }
 
-export function menuMenuidDelete(http: HttpClient, rootUrl: string, params: MenuMenuidDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, menuMenuidDelete.PATH, 'delete');
+export function menuMenuIdPut(http: HttpClient, rootUrl: string, params: MenuMenuIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, menuMenuIdPut.PATH, 'put');
   if (params) {
     rb.path('menuId', params.menuId, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -27,4 +30,4 @@ export function menuMenuidDelete(http: HttpClient, rootUrl: string, params: Menu
   );
 }
 
-menuMenuidDelete.PATH = '/menu/{menuid}';
+menuMenuIdPut.PATH = '/menu/{menuId}';

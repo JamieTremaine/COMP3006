@@ -10,12 +10,12 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { Menu } from '../models/menu';
-import { menuMenuidDelete } from '../fn/menu/menu-menuid-delete';
-import { MenuMenuidDelete$Params } from '../fn/menu/menu-menuid-delete';
+import { menuMenuIdDelete } from '../fn/menu/menu-menu-id-delete';
+import { MenuMenuIdDelete$Params } from '../fn/menu/menu-menu-id-delete';
 import { menuMenuIdGet } from '../fn/menu/menu-menu-id-get';
 import { MenuMenuIdGet$Params } from '../fn/menu/menu-menu-id-get';
-import { menuMenuidPut } from '../fn/menu/menu-menuid-put';
-import { MenuMenuidPut$Params } from '../fn/menu/menu-menuid-put';
+import { menuMenuIdPut } from '../fn/menu/menu-menu-id-put';
+import { MenuMenuIdPut$Params } from '../fn/menu/menu-menu-id-put';
 import { menuPost } from '../fn/menu/menu-post';
 import { MenuPost$Params } from '../fn/menu/menu-post';
 import { menuRestaurantIdCurrentGet } from '../fn/menu/menu-restaurant-id-current-get';
@@ -53,6 +53,64 @@ export class MenuService extends BaseService {
   menuMenuIdGet(params: MenuMenuIdGet$Params, context?: HttpContext): Observable<Menu> {
     return this.menuMenuIdGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Menu>): Menu => r.body)
+    );
+  }
+
+  /** Path part for operation `menuMenuIdPut()` */
+  static readonly MenuMenuIdPutPath = '/menu/{menuId}';
+
+  /**
+   * update an existing menu
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `menuMenuIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  menuMenuIdPut$Response(params: MenuMenuIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return menuMenuIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * update an existing menu
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `menuMenuIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  menuMenuIdPut(params: MenuMenuIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.menuMenuIdPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `menuMenuIdDelete()` */
+  static readonly MenuMenuIdDeletePath = '/menu/{menuId}';
+
+  /**
+   * delete an existing menu
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `menuMenuIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  menuMenuIdDelete$Response(params: MenuMenuIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return menuMenuIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * delete an existing menu
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `menuMenuIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  menuMenuIdDelete(params: MenuMenuIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.menuMenuIdDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -111,64 +169,6 @@ export class MenuService extends BaseService {
   menuPost(params: MenuPost$Params, context?: HttpContext): Observable<Menu> {
     return this.menuPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<Menu>): Menu => r.body)
-    );
-  }
-
-  /** Path part for operation `menuMenuidPut()` */
-  static readonly MenuMenuidPutPath = '/menu/{menuid}';
-
-  /**
-   * update an existing menu
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `menuMenuidPut()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  menuMenuidPut$Response(params: MenuMenuidPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return menuMenuidPut(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * update an existing menu
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `menuMenuidPut$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  menuMenuidPut(params: MenuMenuidPut$Params, context?: HttpContext): Observable<void> {
-    return this.menuMenuidPut$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `menuMenuidDelete()` */
-  static readonly MenuMenuidDeletePath = '/menu/{menuid}';
-
-  /**
-   * delete an existing menu
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `menuMenuidDelete()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  menuMenuidDelete$Response(params: MenuMenuidDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return menuMenuidDelete(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * delete an existing menu
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `menuMenuidDelete$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  menuMenuidDelete(params: MenuMenuidDelete$Params, context?: HttpContext): Observable<void> {
-    return this.menuMenuidDelete$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

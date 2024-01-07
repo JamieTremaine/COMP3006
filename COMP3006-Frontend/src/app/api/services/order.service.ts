@@ -31,7 +31,7 @@ export class OrderService extends BaseService {
   static readonly OrderUserIdRecentGetPath = '/order/{userId}/recent';
 
   /**
-   * Use to get a singular order by id
+   * Use to get all recent orders of a user
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `orderUserIdRecentGet()` instead.
@@ -43,7 +43,7 @@ export class OrderService extends BaseService {
   }
 
   /**
-   * Use to get a singular order by id
+   * Use to get all recent orders of a user
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `orderUserIdRecentGet$Response()` instead.
@@ -118,7 +118,7 @@ export class OrderService extends BaseService {
   static readonly OrderRestaurantIdActiveGetPath = '/order/{restaurantId}/active';
 
   /**
-   * Use to get all active orders for a reasturant
+   * Use to get all active orders for a restaurant
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `orderRestaurantIdActiveGet()` instead.
@@ -130,7 +130,7 @@ export class OrderService extends BaseService {
   }
 
   /**
-   * Use to get all active orders for a reasturant
+   * Use to get all active orders for a restaurant
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `orderRestaurantIdActiveGet$Response()` instead.
