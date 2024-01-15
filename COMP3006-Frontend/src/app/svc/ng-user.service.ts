@@ -26,9 +26,9 @@ export class NgUserService {
         return lastValueFrom(this.userService.userLoginPost({body: loginCreds})).then((result) => {
             if(result._id) {
                 this.user = result;
+                this.persistanceService.setUser(result);
                 this.loggedIn = true;
                 this.LoggedInSubject.next(true);
-                this.persistanceService.setUser(result);
                 return true;
             } else {
                 return false;

@@ -86,6 +86,30 @@ menuRoutes.get(`${path}/:restaurantId/current`, (req, res) => {
     
 });
 
+/**
+ * @openapi
+ * /menu/{restaurantId}/all:
+ *  get:
+ *      description: All menus for a restaurant
+ *      parameters:
+ *      -   in: path
+ *          name: restaurantId
+ *      tags:
+ *      -   menu
+ *      responses:
+ *          '200':
+ *              description: ok
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: "array"
+ *                          items:
+ *                              $ref: '#/components/schemas/menu'
+ *          '404':
+ *              description: menus not found
+ *          '500':
+ *              description: other server error
+ */
 menuRoutes.get(`${path}/:restaurantId/all`, (req, res) => {
     menuService.getrestaurantMenus(req.params.restaurantId).then((result) => {
         result.length > 0 ?

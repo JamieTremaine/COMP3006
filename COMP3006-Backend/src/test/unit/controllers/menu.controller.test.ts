@@ -34,7 +34,7 @@ describe('menu controller', () => {
 
         it('should return 200 and menu', async () => {
 
-            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', MenuItems: [] };
+            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name',  name: 'menuName', MenuItems: [] };
 
             const getMenuSpy = jest.spyOn(MenuService.prototype, 'getMenu').mockImplementation((id) =>{ 
                 return id === 'testMenuId' ? Promise.resolve(menuResponse) : Promise.resolve(null)
@@ -48,7 +48,7 @@ describe('menu controller', () => {
 
         it('should return 404', async () => {
 
-            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', MenuItems: [] };
+            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', name: 'menuName', MenuItems: [] };
 
             const getMenuSpy = jest.spyOn(MenuService.prototype, 'getMenu').mockImplementation((id) =>{ 
                 return id === 'testMenuId' ? Promise.resolve(menuResponse) : Promise.resolve(null);
@@ -69,7 +69,7 @@ describe('menu controller', () => {
                 description: ""
             };
 
-            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', MenuItems: [] };
+            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', MenuItems: [], name: 'menuName' };
 
             const getRestaurantSpy = jest.spyOn(RestaurantService.prototype, 'getRestaurant').mockImplementation((id) =>{ 
                 return id === 'restaurantIdTest' ? Promise.resolve(restaurant) : Promise.resolve(null)
@@ -94,7 +94,7 @@ describe('menu controller', () => {
                 description: ""
             };
 
-            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', MenuItems: [] };
+            const menuResponse: IMenu = {_id: 'testMenuId', restaurantId: 'restuarantId', restaurantName: 'name', MenuItems: [], name: 'menuName' };
 
             const getRestaurantSpy = jest.spyOn(RestaurantService.prototype, 'getRestaurant').mockImplementation((id) =>{ 
                 return id === 'restaurantIdTest' ? Promise.resolve(restaurant) : Promise.resolve(null)
@@ -110,8 +110,8 @@ describe('menu controller', () => {
     describe('/menu/:restaurantId/all', () =>{
         it('should return 200 and restaurant array', async () => {
             const restaurants: Array<IMenu> = [
-                { _id: 'currentMenuIdOne', restaurantId: 'restaurantIdTest', restaurantName: 'name' },
-                { _id: 'currentMenuIdTwo', restaurantId: 'restaurantIdTest', restaurantName: 'name' },
+                { _id: 'currentMenuIdOne', restaurantId: 'restaurantIdTest', restaurantName: 'name',  name: 'menuName' },
+                { _id: 'currentMenuIdTwo', restaurantId: 'restaurantIdTest', restaurantName: 'name',  name: 'menuName' },
             ]
 
 
@@ -128,8 +128,8 @@ describe('menu controller', () => {
         it('should return 404', async () => {
 
             const restaurants: Array<IMenu> = [
-                { _id: 'currentMenuIdOne', restaurantId: 'restaurantIdTes', restaurantName: 'name' },
-                { _id: 'currentMenuIdTwo', restaurantId: 'restaurantIdTes', restaurantName: 'name' },
+                { _id: 'currentMenuIdOne', restaurantId: 'restaurantIdTes', restaurantName: 'name',  name: 'menuName' },
+                { _id: 'currentMenuIdTwo', restaurantId: 'restaurantIdTes', restaurantName: 'name',  name: 'menuName' },
             ]
 
             const getMenusSpy = jest.spyOn(MenuService.prototype, 'getrestaurantMenus').mockImplementation((id) =>{ 
@@ -146,11 +146,11 @@ describe('menu controller', () => {
     describe('/menu', () =>{
         it('should return 201 and return created menu', async () => {
 
-            const menu: IMenu = {_id: '', restaurantId: 'resturantId', restaurantName: 'name', MenuItems: [
+            const menu: IMenu = {_id: '', restaurantId: 'resturantId', restaurantName: 'name', name: 'menuName',  MenuItems: [
                 { _id: 'itemId', name: 'itemName', description: '', price: 2.99 , itemTypes: [''], allegens: [''] ,extras: [], nutritionalInfo: {calories:1}}
             ]};
 
-            const returnedMenu: IMenu = {_id: 'addedId', restaurantId: 'resturantId', restaurantName: 'name', MenuItems: [
+            const returnedMenu: IMenu = {_id: 'addedId', restaurantId: 'resturantId',  name: 'menuName', restaurantName: 'name', MenuItems: [
                 { _id: 'itemId', name: 'itemName', description: '', price: 2.99 , itemTypes: [''], allegens: [''] ,extras: [], nutritionalInfo: {calories:1}}
             ]};
 

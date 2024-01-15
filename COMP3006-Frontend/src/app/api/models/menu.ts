@@ -28,6 +28,7 @@ export interface Menu {
 '_id'?: string;
 }>;
   '_id'?: string;
+  name?: string;
   restaurantId?: string;
   restaurantName?: string;
 }

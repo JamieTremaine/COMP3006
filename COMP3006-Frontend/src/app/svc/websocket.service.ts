@@ -39,8 +39,16 @@ export class WebsocketService implements OnDestroy {
     }
 
     startSocket() {
+        console.log('starting')
         this.socket = io('http://localhost:3000');
-        this.socket.emit('connection-details', this.ngUSerService.getUser()?._id);
+
+        this.socket.on("connect", () => {
+            const engine = this.socket?.io.engine;
+            console.log('connected')
+            engine?.once("upgrade", () => {
+                this.socket?.emit('connection-details', this.ngUSerService.getUser()?._id);
+            });
+        });
 
         this.socket.onAny((message)=> {
             this.onMessage.next();

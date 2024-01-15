@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     activeNotifications = 0;
     loggedIn: boolean = false;
     status: Array<string> = [];
+    userType?: string;
+    restaurantId?: string;
     private destroy$ = new Subject<void>();
 
     constructor(
@@ -39,8 +41,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$)).subscribe((activeOrders) => this.activeOrders = activeOrders);
 
         this.loggedIn = this.userService.isLoggedIn();
+
+        if(this.loggedIn) {
+            const user = this.userService.getUser();
+            this.userType = user?.type;
+            this.restaurantId =  user?.restaurantId;
+        }
         this.userService.LoggedInSubject
-        .pipe(takeUntil(this.destroy$)).subscribe((loggedIn) => this.loggedIn = loggedIn);
+        .pipe(takeUntil(this.destroy$)).subscribe((loggedIn) => {
+            this.loggedIn = loggedIn;
+
+            const user = this.userService.getUser();
+            this.userType = user?.type;
+            this.restaurantId =  user?.restaurantId;
+        });
 
         this.websocketService.statusChange
         .pipe(takeUntil(this.destroy$)).subscribe((status) => { 

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build-spec": "npx ts-node src/api-spec.ts",
-    "build": "npx tsc && npm run build-spec"
+    "build": "npx tsc && npm run build-spec",
+    "run":"npx ts-node src/server.ts"
   },
   "author": "",
   "license": "ISC",

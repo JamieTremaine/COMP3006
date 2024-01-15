@@ -13,8 +13,8 @@ describe('menu service', () =>{
 
     it('should get restaurant menus', async () => {
         const menus: Array<IMenu> = [
-            { _id: 'menuOne', restaurantId: 'id', restaurantName: 'name'},
-            { _id: 'menuTwo', restaurantId: 'id', restaurantName: 'name'},
+            { _id: 'menuOne', restaurantId: 'id', restaurantName: 'name', name: 'menuName'},
+            { _id: 'menuTwo', restaurantId: 'id', restaurantName: 'name',  name: 'menuName'},
 
         ]
 
@@ -26,9 +26,9 @@ describe('menu service', () =>{
     });
 
     it('should set restaurant menus', async () => {
-        const menu: IMenu = { _id: '', restaurantId: 'id', restaurantName: 'name'}
+        const menu: IMenu = { _id: '', restaurantId: 'id', restaurantName: 'name', name: 'menuName'};
 
-        const expectedReturnMenu: IMenu = { _id: 'addedId', restaurantId: 'id', restaurantName: 'name'}
+        const expectedReturnMenu: IMenu = { _id: 'addedId', restaurantId: 'id', restaurantName: 'name', name: 'menuName'};
 
         MenuModel.create = jest.fn().mockResolvedValue(Promise.resolve(expectedReturnMenu));
 

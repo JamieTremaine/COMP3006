@@ -67,7 +67,7 @@ export class RestaurantService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  restaurantRestaurantIdPut$Response(params: RestaurantRestaurantIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  restaurantRestaurantIdPut$Response(params: RestaurantRestaurantIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
     return restaurantRestaurantIdPut(this.http, this.rootUrl, params, context);
   }
 
@@ -79,9 +79,9 @@ export class RestaurantService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  restaurantRestaurantIdPut(params: RestaurantRestaurantIdPut$Params, context?: HttpContext): Observable<void> {
+  restaurantRestaurantIdPut(params: RestaurantRestaurantIdPut$Params, context?: HttpContext): Observable<Restaurant> {
     return this.restaurantRestaurantIdPut$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Restaurant>): Restaurant => r.body)
     );
   }
 

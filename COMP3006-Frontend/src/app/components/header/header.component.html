@@ -13,20 +13,22 @@
             <h4>{{ headerService.currentTitle }}</h4>
             @if(loggedIn){
                 <ul class="navbar-nav ms-md-auto d-flex flex-row">
-                    <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
-                        <a (click)="notificationsClicked()" ngbDropdownToggle class="nav-link dropdown-toggle">
-                            <i class="fas fa-bell"></i>
-                            @if (activeNotifications !== 0) {
-                                <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeNotifications }}</span>
-                            }
-                        </a>
-                        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
-                            @for (item of status; track $index) {
-                                <p class="mb-0" ngbDropdownItem>{{ item }}</p>
-                            }
-                            
-                        </div>
-                    </li>
+                    @if (userType === "user") {
+                        <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
+                            <a (click)="notificationsClicked()" ngbDropdownToggle class="nav-link dropdown-toggle">
+                                <i class="fas fa-bell"></i>
+                                @if (activeNotifications !== 0) {
+                                    <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeNotifications }}</span>
+                                }
+                            </a>
+                            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+                                @for (item of status; track $index) {
+                                    <p class="mb-0" ngbDropdownItem>{{ item }}</p>
+                                }
+                                
+                            </div>
+                        </li>
+                    }
                     <li ngbDropdown class="ms-md-auto d-flex flex-row me-2">
                         <a ngbDropdownToggle class="nav-link dropdown-toggle">
                             <i class="fa-regular fa-user"></i>
@@ -35,10 +37,16 @@
                             }
                         </a>
                         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
-                            <button [routerLink]="['orders', 'current']" ngbDropdownItem class="btn">
-                                pending orders 
-                                <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeOrders }}</span></button>
-                            <button [routerLink]="['orders', 'previous']" ngbDropdownItem class="btn">Previous orders</button>
+                            @if (userType === "user") {
+                                <button [routerLink]="['orders', 'current']" ngbDropdownItem class="btn">
+                                    pending orders 
+                                    <span class="badge rounded-pill badge-notification bg-danger ms-1">{{ activeOrders }}</span>
+                                </button>
+                                <button [routerLink]="['orders', 'previous']" ngbDropdownItem class="btn">Previous orders</button>
+                            }
+                            @if (userType === "restaurant") {
+                                <button [routerLink]="['menus', restaurantId]" ngbDropdownItem class="btn">Update Menus</button>
+                            }
                             <button (click)="logout()" ngbDropdownItem class="btn">Log out</button>
                         </div>
                     </li>

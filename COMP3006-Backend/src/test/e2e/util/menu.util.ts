@@ -4,6 +4,7 @@ export function getMenuNoId(): IMenu {
     const menu = {
         "restaurantId": "6592122ce52f99e1b07899dc",
         "restaurantName": "McRonalds",
+        "name": 'menuName',
         "MenuItems": [
           {
             "name": "The small not so cheesy",
@@ -264,6 +265,7 @@ export function getMenuWithId(): IMenu {
     const menu = {
         "_id": "6592122de52f99e1b07899e6",
         "restaurantId": "6592122de52f99e1b07899e2",
+        "name": 'menuName',
         "restaurantName": "Mama Bettys",
         "MenuItems": [
             {

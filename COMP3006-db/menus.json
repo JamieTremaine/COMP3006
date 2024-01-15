@@ -1,6 +1,7 @@
 [
   {
     "restaurantId": "",
+    "name": "menu number one",
     "restaurantName": "",
     "MenuItems": [
       {
@@ -255,6 +256,7 @@
   },
   {
     "restaurantId": "",
+    "name": "menu number one",
     "restaurantName": "",
     "MenuItems": [
       {
@@ -508,6 +510,7 @@
   }, 
   {
     "restaurantId": "",
+    "name": "menu number one",
     "restaurantName": "",
     "MenuItems": [
       {
@@ -729,6 +732,7 @@
     },
     {
         "restaurantId": "",
+        "name": "menu number one",
         "restaurantName": "",
         "MenuItems": [
           {

@@ -6,18 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Restaurant } from '../../models/restaurant';
+import { Menu } from '../../models/menu';
 
-export interface RestaurantRestaurantIdPut$Params {
+export interface MenuRestaurantIdAllGet$Params {
   restaurantId: any;
-      body: Restaurant
 }
 
-export function restaurantRestaurantIdPut(http: HttpClient, rootUrl: string, params: RestaurantRestaurantIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<Restaurant>> {
-  const rb = new RequestBuilder(rootUrl, restaurantRestaurantIdPut.PATH, 'put');
+export function menuRestaurantIdAllGet(http: HttpClient, rootUrl: string, params: MenuRestaurantIdAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Menu>>> {
+  const rb = new RequestBuilder(rootUrl, menuRestaurantIdAllGet.PATH, 'get');
   if (params) {
     rb.path('restaurantId', params.restaurantId, {});
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -25,9 +23,9 @@ export function restaurantRestaurantIdPut(http: HttpClient, rootUrl: string, par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Restaurant>;
+      return r as StrictHttpResponse<Array<Menu>>;
     })
   );
 }
 
-restaurantRestaurantIdPut.PATH = '/restaurant/{restaurantId}';
+menuRestaurantIdAllGet.PATH = '/menu/{restaurantId}/all';

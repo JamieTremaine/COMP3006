@@ -6,10 +6,10 @@ import { Server } from "socket.io";
 
 export class WebsocketService {
 
-    private io?: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
+    private static io?: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
 
     public setIo(io:Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
-        this.io = io;
+        WebsocketService.io = io;
     }
 
     public addConnection(connection: IConnection) {
@@ -23,7 +23,7 @@ export class WebsocketService {
     public async updateStatus(status: IStatus): Promise<Array<IConnection>> {
         let updatedOrder;
 
-        if(status.status === 'delivered') {
+        if(status.status === 'Order delivered!') {
             updatedOrder = await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status, active: false });
         } else {
             updatedOrder = await OrderModel.findByIdAndUpdate(status.orderId, { stage: status.status });
@@ -37,10 +37,10 @@ export class WebsocketService {
     }
 
     public sendOrder(order: IOrder, id: string) {
-        if(this.io !== undefined) {
+        if(WebsocketService.io !== undefined) {
             ConnectionModel.find({userId: id}).then((connections) => {
                 connections.forEach((connection)=>{
-                    this.io!.to(connection.socketId).emit('new-order', order);
+                    WebsocketService.io!.to(connection.socketId).emit('new-order', order);
                 })
             })  
         }

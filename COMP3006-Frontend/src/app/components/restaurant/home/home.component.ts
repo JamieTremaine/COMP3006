@@ -46,7 +46,7 @@ export class ResturantHomeComponent implements OnInit, OnDestroy {
             this.websocketService.sendMessage('Order delivered!', order._id);
             const idx = this.orders?.findIndex(o => o === order);
 
-            if(idx && idx > -1) {
+            if(idx !== undefined && idx > -1) {
                 this.orders?.splice(idx, 1);
             }
         } 

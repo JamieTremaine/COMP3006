@@ -18,6 +18,8 @@ import { menuMenuIdPut } from '../fn/menu/menu-menu-id-put';
 import { MenuMenuIdPut$Params } from '../fn/menu/menu-menu-id-put';
 import { menuPost } from '../fn/menu/menu-post';
 import { MenuPost$Params } from '../fn/menu/menu-post';
+import { menuRestaurantIdAllGet } from '../fn/menu/menu-restaurant-id-all-get';
+import { MenuRestaurantIdAllGet$Params } from '../fn/menu/menu-restaurant-id-all-get';
 import { menuRestaurantIdCurrentGet } from '../fn/menu/menu-restaurant-id-current-get';
 import { MenuRestaurantIdCurrentGet$Params } from '../fn/menu/menu-restaurant-id-current-get';
 
@@ -140,6 +142,35 @@ export class MenuService extends BaseService {
   menuRestaurantIdCurrentGet(params: MenuRestaurantIdCurrentGet$Params, context?: HttpContext): Observable<Menu> {
     return this.menuRestaurantIdCurrentGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Menu>): Menu => r.body)
+    );
+  }
+
+  /** Path part for operation `menuRestaurantIdAllGet()` */
+  static readonly MenuRestaurantIdAllGetPath = '/menu/{restaurantId}/all';
+
+  /**
+   * All menus for a restaurant
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `menuRestaurantIdAllGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  menuRestaurantIdAllGet$Response(params: MenuRestaurantIdAllGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Menu>>> {
+    return menuRestaurantIdAllGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * All menus for a restaurant
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `menuRestaurantIdAllGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  menuRestaurantIdAllGet(params: MenuRestaurantIdAllGet$Params, context?: HttpContext): Observable<Array<Menu>> {
+    return this.menuRestaurantIdAllGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Menu>>): Array<Menu> => r.body)
     );
   }
 

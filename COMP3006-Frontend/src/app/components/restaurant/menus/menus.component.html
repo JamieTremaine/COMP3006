@@ -1,0 +1,18 @@
+<button  [routerLink]="['new']" class="btn btn-primary my-4">New Menu</button>
+
+@for (menu of menus; track $index) {
+    <div class="card mb-2">
+        <div class="card-body d-flex justify-content-between">
+            <div class="d-flex  align-items-center">
+                <a class="me-4" [routerLink]="[menu._id]">{{ menu.name }}</a>
+                <h6 class="mb-0">Current Menu: {{menu._id === currentMenuId}}</h6>
+            </div>
+            <div>
+                <!-- these are backwards -->
+                <button [disabled]="menu._id === currentMenuId" (click)="deleteMenu(menu)" class="btn btn-danger float-end">delete</button>
+                <button [routerLink]="[menu._id, 'edit']" class="btn btn-primary float-end me-2">edit</button>
+                <button (click)="setAsCurrent(menu._id)" [disabled]="menu._id === currentMenuId" class="btn btn-primary float-end me-2">Set as current menu</button>
+            </div>
+        </div>
+    </div>
+}

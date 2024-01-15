@@ -1,0 +1,123 @@
+<div class="card">
+    <div class="card-body">
+        @if (menuForm) {
+            <form [formGroup]="menuForm">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-label">Menu Name: *</label>
+                        <input class="form-control" formControlName="name" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-label">Restaurant Name: *</label>
+                        <input class="form-control"formControlName="restaurantName" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-label">Restaurant ID: *</label>
+                        <input class="form-control" formControlName="restaurantId" />
+                    </div>
+                </div>   
+                <div class="h6 my-2">Items:</div>
+                <div ngbAccordion formArrayName="MenuItems">
+                    @for (item of menuForm.controls.MenuItems.controls; let menuItemIndex = $index; track menuItemIndex) {
+                        <ng-container [formGroupName]="menuItemIndex">
+                            <div ngbAccordionItem>
+                                <h2 ngbAccordionHeader>
+                                    <button ngbAccordionButton>
+                                        {{ item.get('name')?.value }}
+                                    </button>
+                                </h2>
+                                <div ngbAccordionCollapse>
+                                    <div ngbAccordionBody>
+                                    <ng-template>
+                                        <div class="row mb-2">
+                                            <label class="form-label col-2">Name: *</label>
+                                            <div class="col-10">
+                                                <input class="form-control" value="Item name" formControlName="name"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <label class="form-label col-2">Price: *</label>
+                                            <div class="col-10">
+                                                <input type="number" class="form-control" formControlName="price"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <label class="form-label col-2">Description:</label>
+                                            <div class="col-10">
+                                                <input class="form-control" value="blah blah" formControlName="description" />
+                                            </div>
+                                        </div>
+                                        <div class="row" formGroupName="nutritionalInfo">
+                                            <label class="form-label col-2">Total calories:</label>
+                                            <div class="col-10">
+                                                <input type=number class="form-control" formControlName="calories"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <h6>Extras:</h6>
+                                        </div>
+                                        <div ngbAccordion formArrayName="extras">
+                                                @for (extraItem of castAsFormArray(item.get('extras')).controls; let extraIdx = $index; track extraIdx) {
+                                                    <ng-container [formGroupName]="extraIdx">
+                                                        <div ngbAccordionItem>
+                                                            <h2 ngbAccordionHeader>
+                                                                <button ngbAccordionButton>{{ extraItem.get('name')?.value }}</button>
+                                                            </h2>
+                                                            <div ngbAccordionCollapse>
+                                                                <div ngbAccordionBody>
+                                                                <ng-template>
+                                                                    <div class="row mb-2">
+                                                                        <label class="form-label col-2">Extra Name: *</label>
+                                                                        <div class="col-10">
+                                                                            <input formControlName="name" class="form-control"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <ng-container formArrayName="extras">
+                                                                        @if(castAsFormArray(extraItem.get('extras')).controls.length > 0){
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <label class="form-label">Extra: *</label>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <label class="form-label">Nutritional value:</label>
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        }
+                                                                        @for (extra of castAsFormArray(extraItem.get('extras')).controls; track $index) {
+                                                                            
+                                                                            <div class="row" [formGroupName]="$index">
+                                                                                <div class="col-6">
+                                                                                    <input class="form-control mb-2" formControlName="name"/>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <div class="col-6">
+                                                                                        <input type="number" class="form-control mb-2" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </ng-container>                                                              
+                                                                    <button (click)="newExtraItem(extraItem)" class="btn btn-outline-primary mt-2">Add item</button>
+                                                                </ng-template>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                }
+                                        </div> 
+                                        <button (click)="newExtra(item)" class="btn btn-outline-primary mt-2">Add New Extra</button>                   
+                                    </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        
+                    }                     
+                </div>
+            </form>
+            <button (click)="newMenuItem()" class="btn btn-outline-primary mt-2">Add New Item</button>        
+            <button (click)="sendMenu()" class="btn btn-primary mt-2 float-end">Save</button>        
+        }
+    </div>
+</div>

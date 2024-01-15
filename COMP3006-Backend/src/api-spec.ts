@@ -24,6 +24,6 @@ const options: Options = {
 
 const openApiDocs = swaggerJsdoc(options)
 
-fs.writeFileSync('./build/spec.json', JSON.stringify(openApiDocs));
+fs.writeFileSync('./spec.json', JSON.stringify(openApiDocs));
 
 export function getSpec() { return openApiDocs }

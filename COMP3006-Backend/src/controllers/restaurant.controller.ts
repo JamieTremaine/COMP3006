@@ -72,6 +72,9 @@ restaurantRoutes.get(`${path}/get/all`, (req, res) => {
  *      description: update an existing restaurant
  *      tags:
  *      -   restaurant
+ *      parameters:
+ *      -   in: path
+ *          name: restaurantId
  *      requestBody:
  *          required: true
  *          content:
@@ -81,6 +84,10 @@ restaurantRoutes.get(`${path}/get/all`, (req, res) => {
  *      responses:
  *          '204':
  *              description: restaurant was successfully updated
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/restaurant'
  *          '404':
  *              description: restaurant not found
  *          '500':
