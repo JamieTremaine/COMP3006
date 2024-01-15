@@ -38,7 +38,7 @@ if (process.env.BUILD === 'DEV') {
 }
 
 if (process.env.NODE_ENV !== 'test') {
-    connect('mongodb://127.0.0.1:27017/restaurant-ordering-system');
+    connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@comp3006.6tdogo9.mongodb.net/?retryWrites=true&w=majority`);
 }
 
 app.use(bodyParser.json())
